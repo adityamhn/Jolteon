@@ -94,9 +94,6 @@ export const addSeller = async (sellerdata) => {
       portType,
       address,
       numberofports,
-      amenities,
-      longitude,
-      latitude,
       type,
     } = sellerdata;
     let uid = auth.currentUser.uid;
@@ -105,9 +102,6 @@ export const addSeller = async (sellerdata) => {
       portType: portType,
       address: address,
       numberofports: numberofports,
-      amenities: amenities,
-      longitude: longitude,
-      latitude: latitude,
       uid: uid,
       type: type,
     });
