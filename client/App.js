@@ -10,56 +10,46 @@ const theme = extendTheme({
   fontConfig: {
     Montserrat: {
       100: {
-        normal: "Montserrat",
-        italic: "Montserrat",
+        normal: "MontserratLight",
+        italic: "MontserratLightItalic",
       },
       200: {
-        normal: "Montserrat",
-        italic: "Montserrat",
+        normal: "MontserratLight",
+        italic: "MontserratLightItalic",
       },
       300: {
-        normal: "Montserrat",
-        italic: "Montserrat",
+        normal: "MontserratLight",
+        italic: "MontserratLightItalic",
       },
       400: {
-        normal: "Montserrat",
-        italic: "Montserrat",
+        normal: "MontserratRegular",
+        italic: "MontserratItalic",
       },
       500: {
-        normal: "Montserrat",
+        normal: "MontserratMedium",
       },
       600: {
-        normal: "MontserratBold",
-        italic: "Montserrat-Italic",
+        normal: "MontserratMedium",
+        italic: "MontserratMediumItalic",
       },
-      // Add more variants
-      //   700: {
-      //     normal: 'Montserrat-Bold',
-      //   },
-      //   800: {
-      //     normal: 'Montserrat-Bold',
-      //     italic: 'Montserrat-BoldItalic',
-      //   },
-      //   900: {
-      //     normal: 'Montserrat-Bold',
-      //     italic: 'Montserrat-BoldItalic',
-      //   },
     },
   },
 
-  // Make sure values below matches any of the keys in `fontConfig`
   fonts: {
     heading: "Montserrat",
     body: "Montserrat",
     mono: "Montserrat",
   },
 });
-
 export default function App() {
   const [fontsLoaded] = useFonts({
     Montserrat: require("./fonts/Montserrat.ttf"),
     MontserratBold: require("./fonts/Montserrat-Black.ttf"),
     MontserratItalic: require("./fonts/Montserrat-Italic.ttf"),
+    MontserratLight: require("./fonts/Montserrat-Light.ttf"),
+    MontserratMedium: require("./fonts/Montserrat-Medium.ttf"),
+    MontserratSemiBold: require("./fonts/Montserrat-SemiBold.ttf"),
+    MontserratThin: require("./fonts/Montserrat-Thin.ttf"),
   });
 
   if (!fontsLoaded) {
@@ -67,7 +57,7 @@ export default function App() {
   }
   return (
     <SafeArea>
-      <NativeBaseProvider theme={theme}>
+      <NativeBaseProvider>
         <Navigation />
       </NativeBaseProvider>
     </SafeArea>

@@ -24,8 +24,7 @@ const InitialScreen = ({ navigation }) => {
             letterSpacing="3"
             style={{
               color: "#e5e5e5",
-              fontFamily: "Montserrat",
-              //   fontWeight: "bold",
+              fontFamily: "MontserratMedium",
             }}
           >
             YOUR SMART EV SOLUTION

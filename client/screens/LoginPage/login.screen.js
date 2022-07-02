@@ -56,10 +56,10 @@ export function Login({ navigation }) {
         </Box>
         <Box alignItems="center">
           <Text style={{ color: "#e5e5e5" }}>
-            New here ?{" "}
+            New here?{" "}
             <Text
               onPress={() => navigation.navigate("Register")}
-              style={{ color: "#e5e5e5" }}
+              style={{ color: "#ffe040" }}
             >
               Register
             </Text>
