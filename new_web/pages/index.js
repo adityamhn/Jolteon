@@ -32,14 +32,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div>
-          <div
-            style={{
-              width: "90%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+        <div className={Styles.RightContainer}>
+          <div className={Styles.InputField}>
             <Input
               placeholder="Find your nearest Charging, Swapping Stations"
               className="input-box"
@@ -63,6 +57,7 @@ export default function Home() {
             </Button>
           </div>
           <div
+            className={Styles.BottomContent}
             style={{
               color: "#E5E5E5CC",
               fontSize: "0.8rem",

@@ -1,7 +1,9 @@
 .NavContainer {
   display: flex;
   align-items: center;
-
+  @media screen and (max-width: 768px) {
+    justify-content: space-between;
+  }
   .NavLinks {
     color: #fff;
     font-weight: 600;
@@ -16,6 +18,10 @@
       &:hover {
         color: #ffe040;
       }
+    }
+
+    @media screen and (max-width: 768px) {
+      display: none;
     }
   }
 }
