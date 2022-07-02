@@ -38,7 +38,8 @@ export function Register() {
         <FormControl isRequired>
           <InputField
             variant="unstyled"
-            placeholder="Enter your email"
+            placeholder="Enter your password"
+            type="password"
             onChangeText={(value) => {
               setData({ ...formData, password: value });
             }}
@@ -63,7 +64,7 @@ export function Register() {
           </DashboardButton>
         </Box>
         <Box alignItems="center">
-          <Text style={{ color: "#e5e5e5" }}>Already a member ? <Text onPress={() => navigation.navigate("Register")} style={{ color: "#e5e5e5" }}>Login</Text></Text>
+          <Text style={{ color: "#e5e5e5" }}>Already a member ? <Text onPress={() => navigation.navigate("Login")} style={{ color: "#e5e5e5" }}>Login</Text></Text>
         </Box>
       </VStack>
     </Container>
