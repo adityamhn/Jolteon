@@ -5,15 +5,21 @@ import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 import Styles from "/styles/Landing.module.scss";
 import { useRouter } from "next/router";
+import { register } from "../services/auth.service";
 
 export default function Register() {
   const router = useRouter();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-
-    // Do something
-
-    router.push("/user/dashboard");
+  const onFinish = async (values) => {
+    try {
+      console.log("Received values of form: ", values);
+      let regvalue = await register(values);
+      console.log(regvalue);
+      // Do something'
+      router.push("/user/dashboard");
+    } catch (err) {
+      console.log(err.message);
+      console.log(err.code);
+    }
   };
 
   return (

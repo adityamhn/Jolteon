@@ -24,12 +24,12 @@ export const writeToDeviceCollection = async () => {
 export const register = async (regdata) => {
   try {
     let { email, password, name } = regdata;
+    console.log(regdata);
     let user = await createUserWithEmailAndPassword(auth, email, password);
     console.log(user.user.uid);
     let userData = await setDoc(doc(db, "users", user.user.uid), {
       name: name,
       email: email,
-      address: address,
     });
     // add cid or uid afterwards
     console.log(user);
