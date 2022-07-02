@@ -14,10 +14,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.u4ia.jolteon",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
