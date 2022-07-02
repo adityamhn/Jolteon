@@ -10,7 +10,18 @@ export default function Navbar({ hide }) {
   const router = useRouter();
   return (
     <div className={Styles.NavContainer}>
-      <Image src={jolteon} alt="logo" height={80} width={200} />
+      <Image
+        style={{
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          router.push("/");
+        }}
+        src={jolteon}
+        alt="logo"
+        height={80}
+        width={200}
+      />
       {!hide && (
         <>
           <div className={Styles.NavLinks}>

@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import Styles from "/styles/Landing.module.scss";
 import { useRouter } from "next/router";
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
@@ -25,14 +25,14 @@ export default function Login() {
             margin: "0rem",
           }}
         >
-          WELCOME BACK
+          CREATE ACCOUNT
         </h1>
         <p
           style={{
             marginTop: "0.8rem",
           }}
         >
-          Please enter your details
+          Join us to start your journey
         </p>
 
         <Form
@@ -42,6 +42,27 @@ export default function Login() {
             maxWidth: "500px",
           }}
         >
+          <Form.Item
+            name={"name"}
+            rules={[
+              {
+                required: true,
+                message: "Please input your name!",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Enter your Name"
+              className="input-box"
+              style={{
+                width: "100%",
+                height: "3rem",
+                marginTop: "1rem",
+
+                padding: "0 1rem",
+              }}
+            />
+          </Form.Item>
           <Form.Item
             name={"email"}
             rules={[
@@ -89,16 +110,7 @@ export default function Login() {
               type="password"
             />
           </Form.Item>
-          <div
-            style={{
-              textAlign: "right",
-              margin: "1rem 0",
-              fontWeight: 600,
-              fontSize: "0.8rem",
-            }}
-          >
-            Forgot Password?
-          </div>
+
           <Form.Item>
             <Button
               htmlType="submit"
@@ -108,7 +120,7 @@ export default function Login() {
                 width: "100%",
               }}
             >
-              LOGIN
+              REGISTER
             </Button>
           </Form.Item>
         </Form>
@@ -119,18 +131,26 @@ export default function Login() {
             fontSize: "0.8rem",
           }}
         >
-          New here?{" "}
-          <span
+          <div
             style={{
-              cursor: "pointer",
-            }}
-            className="yellow-text"
-            onClick={() => {
-              router.push("/register");
+              margin: "1rem 0",
+              fontWeight: 600,
+              fontSize: "0.8rem",
             }}
           >
-            Register
-          </span>
+            Already a member?{" "}
+            <span
+              className="yellow-text"
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push("/login");
+              }}
+            >
+              Login
+            </span>
+          </div>
         </div>
       </div>
     </Layout>
