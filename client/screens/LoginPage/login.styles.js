@@ -32,6 +32,7 @@ export const InputField = styled(Input)`
 background-color:#414141;
 height:52px;
 margin-top:8px;
+color:#f3f3f3;
 `;
 
 export const DashboardButton = styled(Button)`

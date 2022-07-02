@@ -35,6 +35,7 @@ export function Login({ navigation }) {
         <FormControl isRequired>
           <InputField
             variant="unstyled"
+            type="password"
             placeholder="Enter your password"
             onChangeText={(value) => {
               setData({ ...formData, password: value });
