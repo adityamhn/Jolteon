@@ -4,25 +4,45 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 a {
-  color: inherit;
+  color: #fff !important;
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #fff !important;
+}
+
+h1 {
+  font-weight: 600 !important;
+  font-size: 2rem;
+}
+
+h2 {
+  font-weight: 600 !important;
+  font-size: 1.5rem;
 }
 
 * {
   box-sizing: border-box;
+  color: #fff;
 }
 
 .input-box {
-  background: #414141;
+  background: #414141 !important;
   border-radius: 6px;
   box-shadow: none;
-  border: none;
+  border: none !important;
   padding: 0.5rem;
-  color: #fff;
+  color: #fff !important;
 
   &:focus {
     outline: none;
@@ -31,7 +51,7 @@ a {
 }
 
 .yellow-text {
-  color: #ffe040;
+  color: #ffe040 !important;
 }
 
 .ant-form-item-explain-error {
