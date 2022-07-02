@@ -126,14 +126,14 @@ export function Map() {
               source={{
                 uri: "https://images.unsplash.com/photo-1605282003441-a966bb348137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGV0cm9sJTIwc3RhdGlvbnxlbnwwfHwwfHw%3D&w=1000&q=80",
               }}
-              style={{ width: 80, height: 80 }}
+              style={{ width: 90, height: 90 }}
               resizeMode={"cover"}
               borderRadius={10}
             />
             <View
               marginLeft={16}
               style={{
-                height: 80,
+                height: 90,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-evenly",
@@ -141,7 +141,8 @@ export function Map() {
             >
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: 16,
+                  letterSpacing: 3,
                   color: "#fff",
                   fontWeight: "bold",
                 }}
@@ -151,7 +152,7 @@ export function Map() {
               </Text>
               <Text
                 style={{
-                  fontSize: 10,
+                  fontSize: 12,
                   color: "#fff",
                 }}
               >
@@ -159,7 +160,7 @@ export function Map() {
               </Text>
               <Text
                 style={{
-                  fontSize: 10,
+                  fontSize: 12,
                   color: "#FFE040",
                   fontWeight: "bold",
                 }}
@@ -168,6 +169,7 @@ export function Map() {
               </Text>
             </View>
           </Flex>
+
           <View
             marginBottom={20}
             style={{
@@ -180,6 +182,79 @@ export function Map() {
               opacity: 0.25,
             }}
           />
+          <Flex
+            flexDirection={"row"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            py={2}
+          >
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#ffe040",
+                  fontWeight: "light",
+                  marginLeft: 10,
+                }}
+              >
+                CABLE {openMarker.portType}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 8,
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                PORT TYPE
+              </Text>
+            </Box>
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#ffe040",
+                  fontWeight: "light",
+                  marginLeft: 10,
+                }}
+              >
+                ${openMarker.fee / 100}/KWH
+              </Text>
+              <Text
+                style={{
+                  fontSize: 8,
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                COST
+              </Text>
+            </Box>
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#ffe040",
+                  fontWeight: "light",
+                  marginLeft: 10,
+                }}
+              >
+                200 A, {openMarker.power} kW
+              </Text>
+              <Text
+                style={{
+                  fontSize: 8,
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                POWER
+              </Text>
+            </Box>
+          </Flex>
           <Text
             style={{
               marginLeft: 32,
@@ -324,80 +399,6 @@ export function Map() {
           >
             SHOW DIRECTIONS
           </Button>
-
-          <Flex
-            flexDirection={"row"}
-            alignItems={"center"}
-            justifyContent={"space-around"}
-            py={2}
-          >
-            <Box p="2">
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: "#ffe040",
-                  fontWeight: "bold",
-                  marginLeft: 10,
-                }}
-              >
-                Cable {openMarker.portType}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 8,
-                  color: "#fff",
-                  fontWeight: "bold",
-                  marginLeft: 10,
-                }}
-              >
-                PORT TYPE
-              </Text>
-            </Box>
-            <Box p="2">
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: "#ffe040",
-                  fontWeight: "bold",
-                  marginLeft: 10,
-                }}
-              >
-                ${openMarker.fee / 100}/KWH
-              </Text>
-              <Text
-                style={{
-                  fontSize: 8,
-                  color: "#fff",
-                  fontWeight: "bold",
-                  marginLeft: 10,
-                }}
-              >
-                COST
-              </Text>
-            </Box>
-            <Box p="2">
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: "#ffe040",
-                  fontWeight: "bold",
-                  marginLeft: 10,
-                }}
-              >
-                200 A, {openMarker.power} kW
-              </Text>
-              <Text
-                style={{
-                  fontSize: 8,
-                  color: "#fff",
-                  fontWeight: "bold",
-                  marginLeft: 10,
-                }}
-              >
-                POWER
-              </Text>
-            </Box>
-          </Flex>
 
           <Text
             style={{
