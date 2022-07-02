@@ -1,11 +1,27 @@
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  getAuth,
+  browserSessionPersistence,
+  setPersistence,
+  inMemoryPersistence,
+  onAuthStateChanged,
+} from "firebase/auth";
+
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 const db = getFirestore();
 const auth = getAuth();
@@ -109,6 +125,23 @@ export const addSeller = async (sellerdata) => {
       isSeller: true,
     });
     return { message: "data set" };
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const sellerAddProfileImage = async (file) => {
+  try {
+    let uid = await AsyncStorage.getItem("@userId");
+    const storage = getStorage();
+    let user = await getDoc(doc(db, "users", uid));
+    const storageRef = ref(
+      storage,
+      `sellers/${uid}/${user.stationName}/profileImage`
+    );
+    let upImage = await uploadBytes(storageRef, file);
+
+    return { message: "File Uploaded" };
   } catch (err) {
     throw err;
   }
