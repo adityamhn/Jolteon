@@ -39,23 +39,16 @@ export function Login({ navigation }) {
                 setData({ ...formData, password: value });
               }}
             />
-            <Link
-              _text={{
-                fontSize: "xs",
-                fontWeight: "500",
-                color: "indigo.500",
-              }}
-              alignSelf="flex-end"
-              mt="1"
-            >
-              Forget Password?
-            </Link>
           </FormControl>
           <Button
             mt="2"
             colorScheme="indigo"
             onPress={async () => {
-              await login(formData.email, formData.password);
+              if (formData.email && formData.password) {
+                await login(formData.email, formData.password);
+              } else {
+                console.log("incomplete details");
+              }
             }}
           >
             Sign in
@@ -76,7 +69,7 @@ export function Login({ navigation }) {
                 fontWeight: "medium",
                 fontSize: "sm",
               }}
-              onClick={() => {
+              onPress={() => {
                 navigation.push("Register");
               }}
             >
