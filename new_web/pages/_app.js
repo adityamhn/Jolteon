@@ -12,12 +12,13 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { user, setUser } = useStore();
   useEffect(() => {
-    console.log("hello");
     onAuthStateChanged(auth, (users) => {
       if (users) {
-        console.log("this", user);
         setUser(users);
-        router.replace("/user/dashboard");
+
+        if (["/", "/login", "/register"].includes(router.pathname)) {
+          router.push("/user/dashboard");
+        }
       } else {
         setUser(null);
         router.replace("/");
