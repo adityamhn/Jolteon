@@ -23,17 +23,13 @@ export const writeToDeviceCollection = async () => {
 
 export const register = async (regdata) => {
   try {
-    let { email, password, name, address, phoneNumber, isSeller, isBuyer } =
-      regdata;
+    let { email, password, name } = regdata;
     let user = await createUserWithEmailAndPassword(auth, email, password);
     console.log(user.user.uid);
     let userData = await setDoc(doc(db, "users", user.user.uid), {
       name: name,
       email: email,
       address: address,
-      phoneNumber: phoneNumber,
-      isSeller: isSeller,
-      isBuyer: isBuyer,
     });
     // add cid or uid afterwards
     console.log(user);
@@ -41,7 +37,7 @@ export const register = async (regdata) => {
     // let persistence = await setPersistence(auth, browserSessionPersistence);
     return { message: "Registered", user: user };
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
   }
 };
 
@@ -61,7 +57,7 @@ export const login = async (email, password) => {
       return { message: "no data found" };
     }
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
   }
 };
 
@@ -73,7 +69,7 @@ export const logout = async () => {
     console.log("logged-out", user);
     return { message: "logged-out", user: user || null };
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
   }
 };
 
@@ -87,7 +83,7 @@ export const logout = async () => {
 //     });
 //     console.log(uid);
 //   } catch (err) {
-//     return { code: err.code, message: err.message };
+//     throw err
 //   }
 // };
 
@@ -107,9 +103,13 @@ export const addSeller = async (sellerdata) => {
     });
     return { message: "data set" };
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
   }
 };
+// hello
+// export const getAllSellers = async () => {
+
+// }
 
 const authedUser = async () => {
   // new Promise((resolve, reject) => {

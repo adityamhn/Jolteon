@@ -1,19 +1,25 @@
-import { Form, Input } from "antd";
+import { Form, Input, notification } from "antd";
 import React from "react";
 import Button from "../components/Button";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 import Styles from "/styles/Landing.module.scss";
 import { useRouter } from "next/router";
+import { login } from "../services/auth.service";
 
 export default function Login() {
   const router = useRouter();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-
-    // Do something
-
-    router.push("/user/dashboard");
+  const onFinish = async (values) => {
+    try {
+      console.log("Received values of form: ", values);
+      let value = await login(values.email, values.password);
+      console.log(value);
+      // Do something'
+      router.push("/user/dashboard");
+    } catch (err) {
+      console.log(err.message);
+      console.log(err.code);
+    }
   };
 
   return (
