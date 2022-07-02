@@ -53,7 +53,7 @@ const InfoBox = ({ image, data, dataName }) => (
   </View>
 );
 
-export function Garage() {
+export function Garage({ navigation }) {
   const [garageData, setGarageData] = useState(null);
   const [isPanelActive, setIsPanelActive] = useState(false);
 
@@ -305,6 +305,7 @@ export function Garage() {
             fontSize: 14,
           }}
           w="90%"
+          onPress={() => navigation.navigate("VendorInfo")}
         >
           ENTER VENDOR DETAILS
         </Button>
