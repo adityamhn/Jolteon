@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
     console.log("hello");
     onAuthStateChanged(auth, (users) => {
       if (users) {
-        console.log(user);
+        console.log("this", user);
         setUser(users);
         router.replace("/user/dashboard");
       } else {
