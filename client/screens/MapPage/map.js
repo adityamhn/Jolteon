@@ -14,7 +14,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import mapStyle from "./mapStyle.json";
 import * as Location from "expo-location";
 import { AddIcon, Box, Button, Fab, Flex, Icon } from "native-base";
-import { getAllSeller } from "../../services/auth.service";
+import { book, getAllSeller } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
 
 export function Map() {
@@ -34,7 +34,7 @@ export function Map() {
     closeOnTouchOutside: true,
   };
   const [isPanelActive, setIsPanelActive] = useState(false);
-
+  const [openMarker, setOpenMarker] = useState(null);
   const [isADatePickerVisible, setADatePickerVisibility] = useState(false);
   const [isDDatePickerVisible, setDDatePickerVisibility] = useState(false);
 
@@ -55,12 +55,34 @@ export function Map() {
     setDDatePickerVisibility(false);
   };
 
-  const openPanel = () => {
+  const openPanel = (marker) => {
+    setOpenMarker(marker);
     setIsPanelActive(true);
   };
 
   const closePanel = () => {
     setIsPanelActive(false);
+  };
+
+  const onBook = async () => {
+    if (!arrivalDate || !departureDate) console.log("choose date properly");
+    let bookingData = {
+      fromtime: arrivalDate,
+      totime: departureDate,
+      status: "pending",
+      date: new Date(),
+      sid: openMarker.id,
+    };
+
+    console.log("booking data", bookingData);
+
+    try {
+      let retdata = await book(bookingData);
+
+      console.log(retdata);
+    } catch (err) {
+      console.log("err", err);
+    }
   };
 
   useEffect(() => {
@@ -90,353 +112,355 @@ export function Map() {
 
   return (
     <View style={styles.container}>
-      <SwipeablePanel {...panelProps} isActive={isPanelActive}>
-        <Flex
-          my={8}
-          alignItems="center"
-          justifyContent={"center"}
-          flexDirection={"row"}
-          mx={16}
-        >
-          <Image
-            alt={"addres1"}
-            source={{
-              uri: "https://images.unsplash.com/photo-1605282003441-a966bb348137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGV0cm9sJTIwc3RhdGlvbnxlbnwwfHwwfHw%3D&w=1000&q=80",
-            }}
-            style={{ width: 80, height: 80 }}
-            resizeMode={"cover"}
-            borderRadius={10}
-          />
-          <View marginLeft={12}>
-            <Text
-              style={{
-                fontSize: 14,
-                color: "#fff",
-                fontWeight: "bold",
+      {openMarker && (
+        <SwipeablePanel {...panelProps} isActive={isPanelActive}>
+          <Flex
+            my={8}
+            alignItems="center"
+            justifyContent={"center"}
+            flexDirection={"row"}
+            mx={16}
+          >
+            <Image
+              alt={"addres1"}
+              source={{
+                uri: "https://images.unsplash.com/photo-1605282003441-a966bb348137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGV0cm9sJTIwc3RhdGlvbnxlbnwwfHwwfHw%3D&w=1000&q=80",
               }}
-            >
-              Jolt Station - Koramangala
-            </Text>
-            <Text
-              style={{
-                fontSize: 10,
-                color: "#fff",
-              }}
-            >
-              4/1, 2nd Floor, 4th Cross, 4th block, Koramangala, Bengaluru
-            </Text>
-            <Text
-              style={{
-                fontSize: 10,
-                color: "#FFE040",
-                fontWeight: "bold",
-              }}
-            >
-              4 Ports available{" "}
-            </Text>
-          </View>
-        </Flex>
-
-        <Text
-          style={{
-            marginLeft: 32,
-            fontSize: 12,
-            color: "#fff",
-            fontWeight: "bold",
-          }}
-        >
-          Choose arrival and departure time for{" "}
-          {new Date().toLocaleDateString()}
-        </Text>
-
-        <Flex
-          flexDirection={"row"}
-          alignItems={"center"}
-          justifyContent={"space-around"}
-          py={2}
-        >
-          <Box p="2">
-            <Text
-              style={{
-                fontSize: 12,
-                color: "#ffe040",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              Arrival
-            </Text>
-            <Button
-              style={{
-                color: "#fff",
-                fontWeight: "bold",
-                marginLeft: 10,
-                marginTop: 6,
-                backgroundColor: "#FFE040",
-              }}
-              _text={{
-                color: "#0d0d0d",
-                fontWeight: "bold",
-                fontSize: 8,
-              }}
-              onPress={showDatePicker}
-            >
-              Pick Arrival Time
-            </Button>
-            <DateTimePickerModal
-              isVisible={isADatePickerVisible}
-              mode="time"
-              onConfirm={handleAConfirm}
-              onCancel={() => {
-                setADatePickerVisibility(false);
-              }}
+              style={{ width: 80, height: 80 }}
+              resizeMode={"cover"}
+              borderRadius={10}
             />
-          </Box>
-          <Box p="2">
-            <Text
-              style={{
-                fontSize: 12,
-                color: "#ffe040",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              {departureDate && arrivalDate && (
-                <>
-                  {new Date(
-                    departureDate.getTime() - arrivalDate.getTime()
-                  ).getHours()}{" "}
-                  Hour(s)
-                </>
-              )}
-            </Text>
-          </Box>
-          <Box p="2">
-            <Text
-              style={{
-                fontSize: 12,
-                color: "#ffe040",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              Departure
-            </Text>
-            <Button
-              style={{
-                color: "#fff",
-                fontWeight: "bold",
-                marginLeft: 10,
-                marginTop: 6,
-                backgroundColor: "#FFE040",
-              }}
-              _text={{
-                color: "#0d0d0d",
-                fontWeight: "bold",
-                fontSize: 8,
-              }}
-              onPress={() => {
-                setDDatePickerVisibility(true);
-              }}
-            >
-              Pick Departure Time
-            </Button>
-            <DateTimePickerModal
-              isVisible={isDDatePickerVisible}
-              mode="time"
-              onConfirm={handleDConfirm}
-              onCancel={() => {
-                setDDatePickerVisibility(false);
-              }}
-            />
-          </Box>
-        </Flex>
-
-        <Button
-          my={4}
-          mx={"auto"}
-          rounded="sm"
-          bgColor={"#FFE040"}
-          _text={{
-            color: "#2B2B2B",
-            fontWeight: "bold",
-            fontSize: 12,
-          }}
-          w="80%"
-          disabled={!departureDate || !arrivalDate}
-        >
-          BOOK CHARGER
-        </Button>
-
-        <Button
-          mx={"auto"}
-          rounded="sm"
-          bgColor={"#565656"}
-          _text={{
-            color: "#ffffff",
-            fontWeight: "bold",
-            fontSize: 12,
-          }}
-          w="80%"
-        >
-          SHOW DIRECTIONS
-        </Button>
-
-        <Flex
-          flexDirection={"row"}
-          alignItems={"center"}
-          justifyContent={"space-around"}
-          py={2}
-        >
-          <Box p="2">
-            <Text
-              style={{
-                fontSize: 12,
-                color: "#ffe040",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              Level 3
-            </Text>
-            <Text
-              style={{
-                fontSize: 8,
-                color: "#fff",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              PORT TYPE
-            </Text>
-          </Box>
-          <Box p="2">
-            <Text
-              style={{
-                fontSize: 12,
-                color: "#ffe040",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              $0.4/KWH
-            </Text>
-            <Text
-              style={{
-                fontSize: 8,
-                color: "#fff",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              COST
-            </Text>
-          </Box>
-          <Box p="2">
-            <Text
-              style={{
-                fontSize: 12,
-                color: "#ffe040",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              200 A, 96 kW
-            </Text>
-            <Text
-              style={{
-                fontSize: 8,
-                color: "#fff",
-                fontWeight: "bold",
-                marginLeft: 10,
-              }}
-            >
-              POWER
-            </Text>
-          </Box>
-        </Flex>
-
-        <Text
-          style={{
-            marginTop: 20,
-            marginLeft: 32,
-            fontSize: 10,
-            color: "#fff",
-            fontWeight: "bold",
-          }}
-        >
-          Additional Ammenities available here:
-        </Text>
-
-        <Flex
-          flexDirection={"row"}
-          alignItems={"center"}
-          justifyContent={"flex-start"}
-          py={2}
-        >
-          {["cafe", "wc", "rooms"].map((item, idx) => {
-            let img;
-            if (item === "cafe") {
-              img = (
-                <Image
-                  alt={"addres1"}
-                  source={require("../../assets/ameneties/cafe.png")}
-                  style={{ width: 24, height: 24 }}
-                  resizeMode={"contain"}
-                />
-              );
-            } else if (item === "wc") {
-              img = (
-                <Image
-                  alt={"addres1"}
-                  source={require("../../assets/ameneties/wc.png")}
-                  style={{ width: 24, height: 24 }}
-                  resizeMode={"contain"}
-                />
-              );
-            } else if (item === "rooms") {
-              img = (
-                <Image
-                  alt={"addres1"}
-                  source={require("../../assets/ameneties/rooms.png")}
-                  style={{ width: 24, height: 24 }}
-                  resizeMode={"contain"}
-                />
-              );
-            }
-            return (
-              <Box
-                p="2"
-                key={idx}
+            <View marginLeft={12}>
+              <Text
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  fontSize: 14,
+                  color: "#fff",
+                  fontWeight: "bold",
                 }}
-                w={"1/3"}
               >
-                {img}
-                <Text
-                  style={{
-                    fontSize: 8,
-                    color: "#fff",
-                    fontWeight: "bold",
-                    marginTop: 6,
-                    textAlign: "center",
-                  }}
-                >
-                  {item === "cafe"
-                    ? "CAFE"
-                    : item === "wc"
-                    ? "WASHROOM"
-                    : "ROOMS"}
-                </Text>
-              </Box>
-            );
-          })}
-        </Flex>
-      </SwipeablePanel>
+                {console.log(openMarker)}
+                {openMarker.stationName} Station
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "#fff",
+                }}
+              >
+                {openMarker.address}, Bengaluru
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "#FFE040",
+                  fontWeight: "bold",
+                }}
+              >
+                {openMarker.numberofports} ports available{" "}
+              </Text>
+            </View>
+          </Flex>
 
+          <Text
+            style={{
+              marginLeft: 32,
+              fontSize: 12,
+              color: "#fff",
+              fontWeight: "bold",
+            }}
+          >
+            Choose your arrival and departure time
+          </Text>
+
+          <Flex
+            flexDirection={"row"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            py={2}
+          >
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "#ffe040",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                Arrival
+              </Text>
+              <Button
+                style={{
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                  marginTop: 6,
+                  backgroundColor: "#FFE040",
+                }}
+                _text={{
+                  color: "#0d0d0d",
+                  fontWeight: "bold",
+                  fontSize: 8,
+                }}
+                onPress={showDatePicker}
+              >
+                Pick Arrival Time
+              </Button>
+              <DateTimePickerModal
+                isVisible={isADatePickerVisible}
+                mode="time"
+                onConfirm={handleAConfirm}
+                onCancel={() => {
+                  setADatePickerVisibility(false);
+                }}
+              />
+            </Box>
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "#ffe040",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                {departureDate && arrivalDate && (
+                  <>
+                    {new Date(
+                      departureDate.getTime() - arrivalDate.getTime()
+                    ).getHours()}{" "}
+                    Hour(s)
+                  </>
+                )}
+              </Text>
+            </Box>
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "#ffe040",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                Departure
+              </Text>
+              <Button
+                style={{
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                  marginTop: 6,
+                  backgroundColor: "#FFE040",
+                }}
+                _text={{
+                  color: "#0d0d0d",
+                  fontWeight: "bold",
+                  fontSize: 8,
+                }}
+                onPress={() => {
+                  setDDatePickerVisibility(true);
+                }}
+              >
+                Pick Departure Time
+              </Button>
+              <DateTimePickerModal
+                isVisible={isDDatePickerVisible}
+                mode="time"
+                onConfirm={handleDConfirm}
+                onCancel={() => {
+                  setDDatePickerVisibility(false);
+                }}
+              />
+            </Box>
+          </Flex>
+
+          <Button
+            my={4}
+            mx={"auto"}
+            rounded="sm"
+            bgColor={"#FFE040"}
+            _text={{
+              color: "#2B2B2B",
+              fontWeight: "bold",
+              fontSize: 12,
+            }}
+            w="80%"
+            disabled={!departureDate || !arrivalDate}
+            onPress={onBook}
+          >
+            BOOK CHARGER
+          </Button>
+
+          <Button
+            mx={"auto"}
+            rounded="sm"
+            bgColor={"#565656"}
+            _text={{
+              color: "#ffffff",
+              fontWeight: "bold",
+              fontSize: 12,
+            }}
+            w="80%"
+          >
+            SHOW DIRECTIONS
+          </Button>
+
+          <Flex
+            flexDirection={"row"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            py={2}
+          >
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "#ffe040",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                Cable {openMarker.portType}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 8,
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                PORT TYPE
+              </Text>
+            </Box>
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "#ffe040",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                ${openMarker.fee / 100}/KWH
+              </Text>
+              <Text
+                style={{
+                  fontSize: 8,
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                COST
+              </Text>
+            </Box>
+            <Box p="2">
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "#ffe040",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                200 A, {openMarker.power} kW
+              </Text>
+              <Text
+                style={{
+                  fontSize: 8,
+                  color: "#fff",
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                }}
+              >
+                POWER
+              </Text>
+            </Box>
+          </Flex>
+
+          <Text
+            style={{
+              marginTop: 20,
+              marginLeft: 32,
+              fontSize: 10,
+              color: "#fff",
+              fontWeight: "bold",
+            }}
+          >
+            Additional Ammenities available here:
+          </Text>
+
+          <Flex
+            flexDirection={"row"}
+            alignItems={"center"}
+            justifyContent={"flex-start"}
+            py={2}
+          >
+            {openMarker.ameneties.map((item, idx) => {
+              let img;
+              if (item === "cafe") {
+                img = (
+                  <Image
+                    alt={"addres1"}
+                    source={require("../../assets/ameneties/cafe.png")}
+                    style={{ width: 24, height: 24 }}
+                    resizeMode={"contain"}
+                  />
+                );
+              } else if (item === "wc") {
+                img = (
+                  <Image
+                    alt={"addres1"}
+                    source={require("../../assets/ameneties/wc.png")}
+                    style={{ width: 24, height: 24 }}
+                    resizeMode={"contain"}
+                  />
+                );
+              } else if (item === "rooms") {
+                img = (
+                  <Image
+                    alt={"addres1"}
+                    source={require("../../assets/ameneties/rooms.png")}
+                    style={{ width: 24, height: 24 }}
+                    resizeMode={"contain"}
+                  />
+                );
+              }
+              return (
+                <Box
+                  p="2"
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  w={"1/3"}
+                >
+                  {img}
+                  <Text
+                    style={{
+                      fontSize: 8,
+                      color: "#fff",
+                      fontWeight: "bold",
+                      marginTop: 6,
+                      textAlign: "center",
+                    }}
+                  >
+                    {item === "cafe"
+                      ? "CAFE"
+                      : item === "wc"
+                      ? "WASHROOM"
+                      : "ROOMS"}
+                  </Text>
+                </Box>
+              );
+            })}
+          </Flex>
+        </SwipeablePanel>
+      )}
       {location && location.coords && allmarkers != null ? (
         <>
           <View
@@ -490,7 +514,7 @@ export function Map() {
                   key={idx}
                   title={"Charging Station"}
                   onPress={() => {
-                    openPanel();
+                    openPanel(marker);
                   }}
                 >
                   <Image

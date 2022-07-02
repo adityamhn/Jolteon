@@ -13,7 +13,6 @@
     "@ant-design/icons-react-native": "^2.3.2",
     "@expo-google-fonts/montserrat": "^0.2.2",
     "@expo/vector-icons": "^13.0.0",
-    "@react-native-async-storage/async-storage": "^1.17.7",
     "@react-native-community/cli-debugger-ui": "^8.0.0",
     "@react-native-community/datetimepicker": "^6.1.2",
     "@react-navigation/bottom-tabs": "^6.3.1",

@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getFirestore,
   doc,
@@ -169,17 +168,17 @@ export const book = async (bookingData) => {
   try {
     let uid = auth.currentUser.uid;
     let sellerData = await getDoc(doc(db, "sellers", bookingData.sid));
+    console.log(sellerData.data());
+    let bookings = sellerData.data().bookings || [];
+    bookings.push({
+      fromtime: bookingData.fromtime,
+      totime: bookingData.totime,
+      status: bookingData.status,
+      date: bookingData.date,
+      uid: uid,
+    });
     let upSellerData = await updateDoc(doc(db, "sellers", bookingData.sid), {
-      bookings: [
-        ...sellerData.data()?.bookings,
-        {
-          fromtime: bookingData.fromtime,
-          totime: bookingData.totime,
-          status: bookingData.status,
-          date: bookingData.date,
-          uid: uid,
-        },
-      ],
+      bookings: bookings,
     });
     return { message: "Plan Booked!" };
   } catch (err) {
