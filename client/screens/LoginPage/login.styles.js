@@ -1,4 +1,4 @@
-import { Center, Container, Heading, Input } from "native-base";
+import { Button, Center, Container, Heading, Input } from "native-base";
 import styled from "styled-components";
 
 export const AppCenter = styled(Center)`
@@ -30,5 +30,11 @@ margin-top:24px;
 
 export const InputField = styled(Input)`
 background-color:#414141;
-border:0px;
+height:52px;
+margin-top:8px;
 `;
+
+export const DashboardButton = styled(Button)`
+background-color:#FFE040;
+height:52px;
+`

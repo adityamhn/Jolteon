@@ -1,73 +1,52 @@
 import React, { Component, useState } from "react";
-import {
-  Box,
-  Center,
-  Heading,
-  VStack,
-  FormControl,
-  Input,
-  Button,
-} from "native-base";
+
+import { Container } from "../initPage/init.styles";
+import logo from "../../assets/fulllogo.png"
+import { Box, FormControl, Image, Text, VStack } from "native-base";
 import { register } from "../../services/auth.service";
+import { DashboardButton, InputField, WelcomeText } from "../LoginPage/login.styles";
 
 export function Register() {
   const [formData, setData] = useState({});
   return (
-    <Center w="100%">
-      <Box safeArea p="2" w="90%" maxW="290" py="8">
-        <Heading
-          size="lg"
-          color="coolGray.800"
-          _dark={{
-            color: "warmGray.50",
-          }}
-          fontWeight="semibold"
-        >
-          Welcome
-        </Heading>
-        <Heading
-          mt="1"
-          color="coolGray.600"
-          _dark={{
-            color: "warmGray.200",
-          }}
-          fontWeight="medium"
-          size="xs"
-        >
-          Sign up to continue!
-        </Heading>
-        <VStack space={3} mt="5">
-          <FormControl>
-            <FormControl.Label>Email</FormControl.Label>
-            <Input
-              isRequired
-              onChangeText={(value) => {
-                setData({ ...formData, email: value });
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormControl.Label>Password</FormControl.Label>
-            <Input
-              isRequired
-              onChangeText={(value) => {
-                setData({ ...formData, password: value });
-              }}
-              type="password"
-            />
-          </FormControl>
-          <FormControl>
-            <FormControl.Label>Name</FormControl.Label>
-            <Input
-              isRequired
-              onChangeText={(value) => {
-                setData({ ...formData, name: value });
-              }}
-            />
-          </FormControl>
-          <Button
+    <Container flex="1" backgroundColor="#0d0d0d" style={{ paddingHorizontal: 32 }}>
+      <Image source={logo} style={{ width: 130, height: 40, marginLeft: -18 }} />
+
+      <WelcomeText>
+        CREATE ACCOUNT
+      </WelcomeText>
+
+      <VStack space={3} mt="10">
+        <FormControl isRequired>
+          <InputField
+            variant="unstyled"
+            placeholder="Enter your Name"
+            onChangeText={(value) => {
+              setData({ ...formData, name: value });
+            }}
+          />
+        </FormControl>
+        <FormControl isRequired>
+          <InputField
+            variant="unstyled"
+            placeholder="Enter your email"
+            onChangeText={(value) => {
+              setData({ ...formData, email: value });
+            }}
+          />
+        </FormControl>
+        <FormControl isRequired>
+          <InputField
+            variant="unstyled"
+            placeholder="Enter your email"
+            onChangeText={(value) => {
+              setData({ ...formData, password: value });
+            }}
+          />
+        </FormControl>
+        <Box mt="8">
+          <DashboardButton
             mt="2"
-            colorScheme="indigo"
             onPress={async () => {
               if (
                 formData.name != null &&
@@ -80,11 +59,14 @@ export function Register() {
               }
             }}
           >
-            Sign up
-          </Button>
-        </VStack>
-      </Box>
-    </Center>
+            <Text style={{ color: "#000" }} bold>Register</Text>
+          </DashboardButton>
+        </Box>
+        <Box alignItems="center">
+          <Text style={{ color: "#e5e5e5" }}>Already a member ? <Text onPress={() => navigation.navigate("Register")} style={{ color: "#e5e5e5" }}>Login</Text></Text>
+        </Box>
+      </VStack>
+    </Container>
   );
 }
 

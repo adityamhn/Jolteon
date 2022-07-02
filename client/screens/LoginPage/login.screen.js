@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { login } from "../../services/auth.service";
 import { Container } from "../initPage/init.styles";
 import logo from "../../assets/fulllogo.png";
-import { Button, FormControl, Image, Input, VStack } from "native-base";
-import { WelcomeText, InputField } from "./login.styles";
+import { Box, FormControl, Image, Text, VStack } from "native-base";
+import { WelcomeText, InputField, DashboardButton } from "./login.styles";
 
 export function Login({ navigation }) {
   const [formData, setData] = useState({});
@@ -22,11 +22,11 @@ export function Login({ navigation }) {
 
       <WelcomeText>WELCOME BACK</WelcomeText>
 
-      <VStack space={3} mt="5">
+      <VStack space={3} mt="10">
         <FormControl isRequired>
           <InputField
-            variant="filled"
-            placeholder="Enter your phone number"
+            variant="unstyled"
+            placeholder="Enter your email"
             onChangeText={(value) => {
               setData({ ...formData, email: value });
             }}
@@ -34,22 +34,36 @@ export function Login({ navigation }) {
         </FormControl>
         <FormControl isRequired>
           <InputField
-            variant="filled"
+            variant="unstyled"
             placeholder="Enter your password"
             onChangeText={(value) => {
               setData({ ...formData, password: value });
             }}
           />
         </FormControl>
-        <Button
-          mt="2"
-          colorScheme="indigo"
-          onPress={async () => {
-            await login(formData.email, formData.password);
-          }}
-        >
-          Sign in
-        </Button>
+        <Box mt="8">
+          <DashboardButton
+            mt="2"
+            onPress={async () => {
+              await login(formData.email, formData.password);
+            }}
+          >
+            <Text style={{ color: "#000" }} bold>
+              Login
+            </Text>
+          </DashboardButton>
+        </Box>
+        <Box alignItems="center">
+          <Text style={{ color: "#e5e5e5" }}>
+            New here ?{" "}
+            <Text
+              onPress={() => navigation.navigate("Register")}
+              style={{ color: "#e5e5e5" }}
+            >
+              Register
+            </Text>
+          </Text>
+        </Box>
       </VStack>
     </Container>
   );
