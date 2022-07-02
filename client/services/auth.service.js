@@ -91,6 +91,7 @@ export const addSeller = async (sellerdata) => {
       amenities,
       longitude,
       latitude,
+      type,
     } = sellerdata;
     let uid = await AsyncStorage.getItem("@userId");
     let sellerData = await setDoc(doc(db, "sellers"), {
@@ -102,6 +103,7 @@ export const addSeller = async (sellerdata) => {
       longitude: longitude,
       latitude: latitude,
       uid: uid,
+      type: type,
     });
     let upUser = await updateDoc(doc(db, "users", uid), {
       isSeller: true,
