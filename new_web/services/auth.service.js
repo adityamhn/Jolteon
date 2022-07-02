@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import { useStore } from "../store/store";
 
-const { autheduser } = useStore();
+const { getState } = useStore;
 
 export const writeToDeviceCollection = async () => {
   await setDoc(doc(db, "devices", "device-1"), {
@@ -94,7 +94,8 @@ export const addSeller = async (sellerdata) => {
   try {
     let { stationName, portType, address, numberofports, amenities } =
       sellerdata;
-    // let user = await authedUser();
+    let authedUser = getState().user;
+    if (!authedUser) throw "user not logged in";
     let uid = autheduser.uid;
     let sellerData = await setDoc(doc(db, "sellers"), {
       stationName: stationName,
@@ -114,7 +115,11 @@ export const addSeller = async (sellerdata) => {
 // hello
 export const getAllSellers = async () => {
   try {
-    console.log(autheduser.uid);
+    console.log(getState().user);
+    let authedUser = getState().user;
+    if (!authedUser) throw "user not logged in";
+    let uid = authedUser.uid;
+
     return { message: "data set" };
   } catch (err) {
     throw err;
@@ -132,4 +137,12 @@ const authedUser = async () => {
       }
     });
   });
+};
+
+export const getTheState = async () => {
+  let user = getState();
+  console.log(
+    "🚀 ~ file: auth.service.js ~ line 137 ~ getTheState ~ user",
+    user
+  );
 };

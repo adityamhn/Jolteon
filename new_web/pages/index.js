@@ -4,6 +4,7 @@ import React from "react";
 import Button from "../components/Button";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
+import { getTheState } from "../services/auth.service";
 import Styles from "/styles/Landing.module.scss";
 export default function Home() {
   return (
