@@ -24,7 +24,7 @@ export function Map() {
   const panelProps = {
     fullWidth: true,
     openSmall: true,
-    showCloseButton: true,
+    showCloseButton: false,
     smallPanelHeight: 500,
     onClose: () => closePanel(),
     onPressCloseButton: () => closePanel(),
@@ -115,11 +115,11 @@ export function Map() {
       {openMarker && (
         <SwipeablePanel {...panelProps} isActive={isPanelActive}>
           <Flex
-            my={8}
+            my={6}
             alignItems="center"
-            justifyContent={"center"}
+            justifyContent={"flex-start"}
             flexDirection={"row"}
-            mx={16}
+            mx={8}
           >
             <Image
               alt={"addres1"}
@@ -130,7 +130,15 @@ export function Map() {
               resizeMode={"cover"}
               borderRadius={10}
             />
-            <View marginLeft={12}>
+            <View
+              marginLeft={16}
+              style={{
+                height: 80,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+              }}
+            >
               <Text
                 style={{
                   fontSize: 14,
@@ -160,7 +168,18 @@ export function Map() {
               </Text>
             </View>
           </Flex>
-
+          <View
+            marginBottom={20}
+            style={{
+              flex: 1,
+              height: 1,
+              width: 260,
+              marginLeft: "20%",
+              marginRight: "80%",
+              backgroundColor: "#E5E5E5",
+              opacity: 0.25,
+            }}
+          />
           <Text
             style={{
               marginLeft: 32,
