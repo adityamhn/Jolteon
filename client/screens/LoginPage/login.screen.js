@@ -23,7 +23,7 @@ export function Login({ navigation }) {
       <WelcomeText>WELCOME BACK</WelcomeText>
 
       <VStack space={3} mt="10">
-        <FormControl isRequired>
+        <FormControl isRequired mt="2">
           <InputField
             variant="unstyled"
             placeholder="Enter your email"
@@ -32,7 +32,7 @@ export function Login({ navigation }) {
             }}
           />
         </FormControl>
-        <FormControl isRequired>
+        <FormControl isRequired mt="2">
           <InputField
             variant="unstyled"
             type="password"
