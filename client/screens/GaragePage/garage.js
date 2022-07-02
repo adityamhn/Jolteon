@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { getGarageDetails } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
+import CardDetails from "../CarDetails/CarDetails";
 
 const InfoBox = ({ image, data, dataName }) => (
   <View
@@ -311,6 +312,8 @@ export function Garage({ navigation }) {
         </Button>
       </Box>
     );
+  } else if (!garageData?.model) {
+    return <CardDetails loading={true} />;
   } else {
     return (
       <View style={styles.container}>
