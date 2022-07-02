@@ -109,7 +109,7 @@ export const addSeller = async (sellerdata) => {
       latitude,
       type,
     } = sellerdata;
-    let uid = await AsyncStorage.getItem("@userId");
+    let uid = auth.currentUser.uid;
     let sellerData = await setDoc(doc(db, "sellers"), {
       stationName: stationName,
       portType: portType,
@@ -132,7 +132,7 @@ export const addSeller = async (sellerdata) => {
 
 export const sellerAddProfileImage = async (file) => {
   try {
-    let uid = await AsyncStorage.getItem("@userId");
+    let uid = auth.currentUser.uid;
     const storage = getStorage();
     let user = await getDoc(doc(db, "users", uid));
     const storageRef = ref(
@@ -149,7 +149,7 @@ export const sellerAddProfileImage = async (file) => {
 
 export const buyPlan = async (buyerdata) => {
   try {
-    let uid = await AsyncStorage.getItem("@userId");
+    let uid = auth.currentUser.uid;
     let q = query(collection(db, "buyers"), where("uid", "==", uid));
     let getBuyerData = await getDocs(q);
     let docId;
@@ -167,18 +167,20 @@ export const buyPlan = async (buyerdata) => {
 
 export const book = async (bookingData) => {
   try {
-    let uid = await AsyncStorage.getItem("@userId");
+    let uid = auth.currentUser.uid;
     let sellerData = await getDoc(doc(db, "sellers", bookingData.sid));
     let upSellerData = await updateDoc(doc(db, "sellers", bookingData.sid), {
       bookings: [
-        ...sellerData.data().bookings,
+        ...sellerData.data()?.bookings,
         {
           time: bookingData.time,
           status: bookingData.status,
           date: bookingData.date,
+          uid: uid,
         },
       ],
     });
+    return { message: "Plan Booked!" };
   } catch (err) {
     throw err;
   }
@@ -186,7 +188,7 @@ export const book = async (bookingData) => {
 
 export const getGarageDetails = async () => {
   try {
-    let uid = await AsyncStorage.getItem("@userId");
+    let uid = auth.currentUser.uid;
     let q = query(collection(db, "buyers"), where("uid", "==", uid));
     let getBuyerData = await getDocs(q);
 
@@ -197,7 +199,7 @@ export const getGarageDetails = async () => {
         id: doc.id,
       });
     });
-    return { message: "Sellers found", garageDetails: garageDetails[0] };
+    return { message: "Garage Details Found", garageDetails: garageDetails[0] };
   } catch (err) {
     throw err;
   }
