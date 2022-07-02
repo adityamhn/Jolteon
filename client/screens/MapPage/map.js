@@ -12,7 +12,7 @@ import {
   Button,
 } from "native-base";
 import { logout } from "../../services/auth.service";
-export function Dashboard() {
+export function Map() {
   return (
     <Center w="100%">
       <Box safeArea p="2" w="90%" maxW="290" py="8">
@@ -24,18 +24,11 @@ export function Dashboard() {
           }}
           fontWeight="semibold"
         >
-          Welcome homie
+          MAP
         </Heading>
-        <Button
-          onPress={async () => {
-            await logout();
-          }}
-        >
-          Sign Out
-        </Button>
       </Box>
     </Center>
   );
 }
 
-export default Dashboard;
+export default Map;
