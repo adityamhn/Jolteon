@@ -8,10 +8,12 @@ import {
   ActivityIndicator,
   TextInput,
 } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import mapStyle from "./mapStyle.json";
 import * as Location from "expo-location";
-import { Box, Button, Fab, Flex, Icon } from "native-base";
+import { AddIcon, Box, Button, Fab, Flex, Icon } from "native-base";
 import { getAllSeller } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
 
@@ -29,8 +31,29 @@ export function Map() {
     style: {
       backgroundColor: "#323232",
     },
+    closeOnTouchOutside: true,
   };
   const [isPanelActive, setIsPanelActive] = useState(false);
+
+  const [isADatePickerVisible, setADatePickerVisibility] = useState(false);
+  const [isDDatePickerVisible, setDDatePickerVisibility] = useState(false);
+
+  const [arrivalDate, setArrivalDate] = useState(null);
+  const [departureDate, setDepartureDate] = useState(null);
+
+  const showDatePicker = () => {
+    setADatePickerVisibility(true);
+  };
+
+  const handleAConfirm = (date) => {
+    setArrivalDate(date);
+    setADatePickerVisibility(false);
+  };
+
+  const handleDConfirm = (date) => {
+    setDepartureDate(date);
+    setDDatePickerVisibility(false);
+  };
 
   const openPanel = () => {
     setIsPanelActive(true);
@@ -114,6 +137,121 @@ export function Map() {
           </View>
         </Flex>
 
+        <Text
+          style={{
+            marginLeft: 32,
+            fontSize: 12,
+            color: "#fff",
+            fontWeight: "bold",
+          }}
+        >
+          Choose arrival and departure time for{" "}
+          {new Date().toLocaleDateString()}
+        </Text>
+
+        <Flex
+          flexDirection={"row"}
+          alignItems={"center"}
+          justifyContent={"space-around"}
+          py={2}
+        >
+          <Box p="2">
+            <Text
+              style={{
+                fontSize: 12,
+                color: "#ffe040",
+                fontWeight: "bold",
+                marginLeft: 10,
+              }}
+            >
+              Arrival
+            </Text>
+            <Button
+              style={{
+                color: "#fff",
+                fontWeight: "bold",
+                marginLeft: 10,
+                marginTop: 6,
+                backgroundColor: "#FFE040",
+              }}
+              _text={{
+                color: "#0d0d0d",
+                fontWeight: "bold",
+                fontSize: 8,
+              }}
+              onPress={showDatePicker}
+            >
+              Pick Arrival Time
+            </Button>
+            <DateTimePickerModal
+              isVisible={isADatePickerVisible}
+              mode="time"
+              onConfirm={handleAConfirm}
+              onCancel={() => {
+                setADatePickerVisibility(false);
+              }}
+            />
+          </Box>
+          <Box p="2">
+            <Text
+              style={{
+                fontSize: 12,
+                color: "#ffe040",
+                fontWeight: "bold",
+                marginLeft: 10,
+              }}
+            >
+              {departureDate && arrivalDate && (
+                <>
+                  {new Date(
+                    departureDate.getTime() - arrivalDate.getTime()
+                  ).getHours()}{" "}
+                  Hour(s)
+                </>
+              )}
+            </Text>
+          </Box>
+          <Box p="2">
+            <Text
+              style={{
+                fontSize: 12,
+                color: "#ffe040",
+                fontWeight: "bold",
+                marginLeft: 10,
+              }}
+            >
+              Departure
+            </Text>
+            <Button
+              style={{
+                color: "#fff",
+                fontWeight: "bold",
+                marginLeft: 10,
+                marginTop: 6,
+                backgroundColor: "#FFE040",
+              }}
+              _text={{
+                color: "#0d0d0d",
+                fontWeight: "bold",
+                fontSize: 8,
+              }}
+              onPress={() => {
+                setDDatePickerVisibility(true);
+              }}
+            >
+              Pick Departure Time
+            </Button>
+            <DateTimePickerModal
+              isVisible={isDDatePickerVisible}
+              mode="time"
+              onConfirm={handleDConfirm}
+              onCancel={() => {
+                setDDatePickerVisibility(false);
+              }}
+            />
+          </Box>
+        </Flex>
+
         <Button
           my={4}
           mx={"auto"}
@@ -125,6 +263,7 @@ export function Map() {
             fontSize: 12,
           }}
           w="80%"
+          disabled={!departureDate || !arrivalDate}
         >
           BOOK CHARGER
         </Button>
