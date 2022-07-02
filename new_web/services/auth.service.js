@@ -1,5 +1,14 @@
 import { db, auth } from "../firebase/config";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,6 +18,9 @@ import {
   inMemoryPersistence,
   onAuthStateChanged,
 } from "firebase/auth";
+
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
 import { useStore } from "../store/store";
 
 const { getState } = useStore;
@@ -96,7 +108,7 @@ export const addSeller = async (sellerdata) => {
       sellerdata;
     let authedUser = getState().user;
     if (!authedUser) throw "user not logged in";
-    let uid = autheduser.uid;
+    let uid = authedUser.uid;
     let sellerData = await setDoc(doc(db, "sellers"), {
       stationName: stationName,
       portType: portType,
@@ -107,11 +119,110 @@ export const addSeller = async (sellerdata) => {
       latitude: latitude,
       uid: uid,
     });
+    let upUser = await updateDoc(doc(db, "users", uid), {
+      isSeller: true,
+    });
     return { message: "data set" };
   } catch (err) {
     throw err;
   }
 };
+
+//seller add image
+export const sellerAddImage = async (file) => {
+  try {
+    let authedUser = getState().user;
+    if (!authedUser) throw "user not logged in";
+    let uid = authedUser.uid;
+    const storage = getStorage();
+    let user = await getDoc(doc(db, "users", uid));
+    const storageRef = ref(
+      storage,
+      `sellers/${uid}/${user.stationName}/images`
+    );
+    let upImage = await uploadBytes(storageRef, file);
+    console.log(upImage);
+    return { message: "File Uploaded" };
+  } catch (err) {
+    throw err;
+  }
+};
+
+// seller add profileImage
+export const sellerAddProfileImage = async (file) => {
+  try {
+    let authedUser = getState().user;
+    if (!authedUser) throw "user not logged in";
+    let uid = authedUser.uid;
+    const storage = getStorage();
+    let user = await getDoc(doc(db, "users", uid));
+    const storageRef = ref(
+      storage,
+      `sellers/${uid}/${user.stationName}/profileImage`
+    );
+    let upImage = await uploadBytes(storageRef, file);
+    console.log(upImage);
+    return { message: "File Uploaded" };
+  } catch (err) {
+    throw err;
+  }
+};
+
+// get spec seller detail
+
+export const getSpecSellerDetail = async (sellerData) => {
+  try {
+    let authedUser = getState().user;
+    if (!authedUser) throw "user not logged in";
+    let uid = authedUser.uid;
+    let sellerData = await getDoc(doc(db, "sellers", sellerData.sid));
+    return { message: "Sellers found", sellerData: sellerData };
+  } catch (err) {
+    throw err;
+  }
+};
+
+// book spec seller details
+
+// export const bookDetails = async (booking) => {
+//   try {
+//     let authedUser = getState().user;
+//     if (!authedUser) throw "user not logged in";
+//     let uid = authedUser.uid;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
+// get authed buyer dashboard // car details + all logs + recomd + number of hours left
+
+// buy plan
+export const buyPlan = async (buyerdata) => {
+  try {
+    let authedUser = getState().user;
+    if (!authedUser) throw "user not logged in";
+    let uid = authedUser.uid;
+    console.log(uid);
+    let q = query(collection(db, "buyers"), where("uid", "==", uid));
+    let getBuyerData = await getDocs(q);
+    let docId;
+    // not good code
+    getBuyerData.forEach((doc) => {
+      docId = doc.id;
+    });
+    let upBuyer = await updateDoc(doc(db, "buyers", docId), {
+      subscription: buyerdata.subscription,
+    });
+    return { message: "Plan Booked!" };
+  } catch (err) {
+    throw err;
+  }
+};
+
+// renew plan
+
+// get plan
+
 // hello
 export const getAllSellers = async () => {
   try {
@@ -119,24 +230,34 @@ export const getAllSellers = async () => {
     let authedUser = getState().user;
     if (!authedUser) throw "user not logged in";
     let uid = authedUser.uid;
-
-    return { message: "data set" };
+    let allSellers = await getDoc(doc(db, "sellers"));
+    return { message: "all sellers found", allSellers: allSellers };
   } catch (err) {
     throw err;
   }
 };
 
-const authedUser = async () => {
-  new Promise((resolve, reject) => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user);
-        resolve("hello");
-      } else {
-        reject("no user found");
-      }
+export const addBuyer = async (buyerdata) => {
+  try {
+    let { brand, model, color, batteryType, isCharging } = buyerdata;
+    let authedUser = getState().user;
+    if (!authedUser) throw "user not logged in";
+    let uid = authedUser.uid;
+    let uploadBuyer = await setDoc(doc(db, "buyers"), {
+      brand: brand,
+      model: model,
+      color: color,
+      batteryType: batteryType,
+      isCharging: false,
+      uid: uid,
     });
-  });
+    let upUser = await updateDoc(doc(db, "users", uid), {
+      isBuyer: true,
+    });
+    return { message: "data set" };
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const getTheState = async () => {
