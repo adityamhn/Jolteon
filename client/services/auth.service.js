@@ -217,3 +217,24 @@ export const allBookingDetails = async () => {
     throw err;
   }
 };
+
+export const addBuyer = async (buyerdata) => {
+  try {
+    let { brand, model, color, batteryType, isCharging } = buyerdata;
+    let uid = auth.currentUser.uid;
+    let uploadBuyer = await setDoc(doc(db, "buyers"), {
+      brand: brand,
+      model: model,
+      color: color,
+      batteryType: batteryType,
+      isCharging: false,
+      uid: uid,
+    });
+    let upUser = await updateDoc(doc(db, "users", uid), {
+      isBuyer: true,
+    });
+    return { message: "data set" };
+  } catch (err) {
+    throw err;
+  }
+};
