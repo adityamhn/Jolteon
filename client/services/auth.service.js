@@ -184,12 +184,12 @@ export const book = async (bookingData) => {
   }
 };
 
-export const getGarageDetails = async (garageData) => {
+export const getGarageDetails = async () => {
   try {
     let uid = await AsyncStorage.getItem("@userId");
     let q = query(collection(db, "buyers"), where("uid", "==", uid));
     let getBuyerData = await getDocs(q);
-    console.log(getBuyerData.data());
+
     let garageDetails = [];
     getBuyerData.forEach((doc) => {
       garageDetails.push({
