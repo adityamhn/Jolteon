@@ -9,7 +9,11 @@ import { register } from "../services/auth.service";
 
 export default function Register() {
   const router = useRouter();
-  const onFinish = async (values) => {
+
+  const [form] = Form.useForm();
+
+  const onFinish = async () => {
+    const values = await form.getFieldsValue();
     try {
       console.log("Received values of form: ", values);
       let regvalue = await register(values);
@@ -42,7 +46,7 @@ export default function Register() {
         </p>
 
         <Form
-          onFinish={onFinish}
+          form={form}
           style={{
             width: "100%",
             maxWidth: "500px",
@@ -119,7 +123,7 @@ export default function Register() {
 
           <Form.Item>
             <Button
-              htmlType="submit"
+              onClick={onFinish}
               style={{
                 marginTop: "2rem",
                 height: 48,

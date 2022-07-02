@@ -10,7 +10,10 @@ import { login } from "../services/auth.service";
 export default function Login() {
   const router = useRouter();
 
-  const onFinish = async (values) => {
+  const [form] = Form.useForm();
+
+  const onFinish = async () => {
+    const values = await form.getFieldsValue();
     try {
       console.log("Received values of form: ", values);
       let value = await login(values.email, values.password);
@@ -43,6 +46,7 @@ export default function Login() {
         </p>
 
         <Form
+          form={form}
           onFinish={onFinish}
           style={{
             width: "100%",
@@ -108,7 +112,7 @@ export default function Login() {
           </div>
           <Form.Item>
             <Button
-              htmlType="submit"
+              onClick={onFinish}
               style={{
                 marginTop: "2rem",
                 height: 48,
