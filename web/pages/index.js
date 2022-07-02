@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import { register, login } from "../services/auth.service";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -50,7 +51,13 @@ export default function Home() {
             </p>
           </a>
         </div>
-        <div>Add some stuff</div>
+        <div
+          onClick={() => {
+            login("kthndesai@gmail.com", "kathan3009");
+          }}
+        >
+          Add some stuff
+        </div>
       </main>
 
       <footer className={styles.footer}>
