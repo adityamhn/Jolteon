@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.input-box {
+  background: #414141;
+  border-radius: 6px;
+  box-shadow: none;
+  border: none;
+  padding: 0.5rem;
+  color: #fff;
+
+  &:focus {
+    outline: none;
+    box-shadow: #ffe040 0px 0px 2px 1px;
+  }
+}
+
+.yellow-text {
+  color: #ffe040;
+}
+
+.ant-form-item-explain-error {
+  color: rgba(255, 0, 0, 0.915);
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+*:focus {
+  outline: none;
+}
