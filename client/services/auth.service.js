@@ -211,15 +211,17 @@ export const allBookingDetails = async () => {
     let uid = auth.currentUser.uid;
     let q = query(collection(db, "sellers"), where("uid", "==", uid));
     let getSellerData = await getDocs(q);
-    let sellerDetails = [];
+    let bookingDetails = [];
+    let sellerData;
     getSellerData.forEach((doc) => {
-      sellerDetails.push({
-        ...doc.data()?.bookings,
-      });
+      bookingDetails.push(doc.data()?.bookings);
+      sellerData = doc.data();
     });
+
     return {
       message: "Booking Details Found",
-      bookingDetails: sellerDetails,
+      bookingDetails: bookingDetails,
+      sellerData,
     };
   } catch (err) {
     throw err;
