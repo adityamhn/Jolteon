@@ -9,6 +9,9 @@ import {
   inMemoryPersistence,
   onAuthStateChanged,
 } from "firebase/auth";
+import { useStore } from "../store/store";
+
+const { getState } = useStore;
 
 export const writeToDeviceCollection = async () => {
   await setDoc(doc(db, "devices", "device-1"), {
@@ -122,4 +125,12 @@ const authedUser = async () => {
       }
     });
   });
+};
+
+export const getTheState = async () => {
+  let user = getState();
+  console.log(
+    "🚀 ~ file: auth.service.js ~ line 137 ~ getTheState ~ user",
+    user
+  );
 };

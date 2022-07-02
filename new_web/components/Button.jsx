@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "/styles/Button.module.scss";
 import { Button as NButton } from "native-base";
 
 export default function Button({
