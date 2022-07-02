@@ -6,6 +6,8 @@ import {
   signOut,
   browserSessionPersistence,
   setPersistence,
+  inMemoryPersistence,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 export const writeToDeviceCollection = async () => {
@@ -63,7 +65,7 @@ export const login = async (email, password) => {
   }
 };
 
-// signout
+// logout
 
 export const logout = async () => {
   try {
@@ -73,4 +75,51 @@ export const logout = async () => {
   } catch (err) {
     return { code: err.code, message: err.message };
   }
+};
+
+// car details first time
+// export const initBuyerProfile = async () => {
+//   try {
+//     let uid;
+//     auth.onAuthStateChanged((user) => {
+//       uid = user.uid;
+//       console.log(uid);
+//     });
+//     console.log(uid);
+//   } catch (err) {
+//     return { code: err.code, message: err.message };
+//   }
+// };
+
+export const addSeller = async (sellerdata) => {
+  try {
+    let { stationName, portType, address, numberofports, amenities } =
+      sellerdata;
+    let user = await authedUser();
+    let uid = user.uid;
+    let sellerData = await setDoc(doc(db, "sellers"), {
+      stationName: stationName,
+      portType: portType,
+      address: address,
+      numberofports: numberofports,
+      amenities: amenities,
+      uid: uid,
+    });
+    return { message: "data set" };
+  } catch (err) {
+    return { code: err.code, message: err.message };
+  }
+};
+
+const authedUser = async () => {
+  // new Promise((resolve, reject) => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       console.log(user);
+  //       resolve("hello");
+  //     } else {
+  //       reject("no user found");
+  //     }
+  //   });
+  // });
 };
