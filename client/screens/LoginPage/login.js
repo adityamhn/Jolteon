@@ -11,6 +11,7 @@ import {
   HStack,
   Button,
 } from "native-base";
+import { login } from "../../services/auth.service";
 
 export function Login({ navigation }) {
   const [formData, setData] = useState({});
@@ -72,8 +73,8 @@ export function Login({ navigation }) {
           <Button
             mt="2"
             colorScheme="indigo"
-            onPress={() => {
-              console.log(formData);
+            onPress={async () => {
+              await login(formData.email, formData.password);
             }}
           >
             Sign in

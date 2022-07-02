@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   Box,
   Center,
@@ -10,6 +10,7 @@ import {
 } from "native-base";
 
 export function Register() {
+  const [formData, setData] = useState({});
   return (
     <Center w="100%">
       <Box safeArea p="2" w="90%" maxW="290" py="8">
@@ -37,17 +38,36 @@ export function Register() {
         <VStack space={3} mt="5">
           <FormControl>
             <FormControl.Label>Email</FormControl.Label>
-            <Input />
+            <Input
+              onChangeText={(value) => {
+                setData({ ...formData, email: value });
+              }}
+            />
           </FormControl>
           <FormControl>
             <FormControl.Label>Password</FormControl.Label>
-            <Input type="password" />
+            <Input
+              onChangeText={(value) => {
+                setData({ ...formData, password: value });
+              }}
+              type="password"
+            />
           </FormControl>
           <FormControl>
-            <FormControl.Label>Confirm Password</FormControl.Label>
-            <Input type="password" />
+            <FormControl.Label>Name</FormControl.Label>
+            <Input
+              onChangeText={(value) => {
+                setData({ ...formData, name: value });
+              }}
+            />
           </FormControl>
-          <Button mt="2" colorScheme="indigo">
+          <Button
+            mt="2"
+            colorScheme="indigo"
+            onPress={() => {
+              console.log(formData);
+            }}
+          >
             Sign up
           </Button>
         </VStack>

@@ -1,0 +1,53 @@
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
+
+const db = getFirestore();
+const auth = getAuth();
+
+export const register = async (regdata) => {
+  try {
+    let { email, password, name, address, phoneNumber, isSeller, isBuyer } =
+      regdata;
+    let user = await createUserWithEmailAndPassword(auth, email, password);
+    console.log(user.user.uid);
+    let userData = await setDoc(doc(db, "users", user.user.uid), {
+      name: name,
+      email: email,
+      address: address,
+      phoneNumber: phoneNumber,
+      isSeller: isSeller,
+      isBuyer: isBuyer,
+    });
+    console.log(user);
+    console.log(userData);
+    return { message: "Registered", user: user };
+  } catch (err) {
+    return { code: err.code, message: err.message };
+  }
+};
+
+export const login = async (email, password) => {
+  try {
+    let user = await signInWithEmailAndPassword(auth, email, password);
+    console.log(user);
+    let userdata = await getDoc(doc(db, "users", user.user.uid));
+    if (userdata.exists()) {
+      console.log("Document data:", userdata.data());
+      return { message: "signed-in", user: user, userdata: userdata.data() };
+    } else {
+      return { message: "no data found" };
+    }
+  } catch (err) {
+    return { code: err.code, message: err.message };
+  }
+};
+
+export const logout = async () => {
+  try {
+    let user = await signOut(auth);
+    console.log("logged-out", user);
+    return { message: "logged-out", user: user || null };
+  } catch (err) {
+    return { code: err.code, message: err.message };
+  }
+};

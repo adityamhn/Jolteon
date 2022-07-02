@@ -1,11 +1,40 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
-
+import {
+  Box,
+  Center,
+  Heading,
+  VStack,
+  FormControl,
+  Input,
+  Link,
+  Text,
+  HStack,
+  Button,
+} from "native-base";
+import { logout } from "../../services/auth.service";
 export function Dashboard() {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Dashboard</Text>
-    </View>
+    <Center w="100%">
+      <Box safeArea p="2" w="90%" maxW="290" py="8">
+        <Heading
+          size="lg"
+          color="coolGray.800"
+          _dark={{
+            color: "warmGray.50",
+          }}
+          fontWeight="semibold"
+        >
+          Welcome homie
+        </Heading>
+        <Button
+          onPress={async () => {
+            await logout();
+          }}
+        >
+          Sign Out
+        </Button>
+      </Box>
+    </Center>
   );
 }
 
