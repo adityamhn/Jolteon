@@ -15,51 +15,209 @@ import {
   Spacer,
   View,
   Divider,
+  ScrollView,
 } from "native-base";
 import { logout } from "../../services/auth.service";
 
-const InfoBox = ({ image, data, dataName }) => (
-  <View
-    width={100}
-    m={4}
-    mx={8}
-    rounded="sm"
-    _text={{
-      color: "warmGray.50",
-      fontWeight: "medium",
-    }}
+const BookingCard = ({ arrival, departure, cost }) => (
+  <Flex
+    w="90%"
+    mx={"auto"}
+    backgroundColor={"#565656"}
+    borderRadius={10}
+    alignItems="center"
   >
-    <Flex flexDirection={"row"} alignItems={"center"}>
-      <View>
-        <Image
-          alt={dataName}
-          source={image}
-          style={{ width: 40, height: 40, marginRight: 10 }}
-          resizeMode={"contain"}
-        />
-      </View>
-      <Flex>
+    <Flex
+      flexDirection={"row"}
+      alignItems={"center"}
+      justifyContent={"space-around"}
+      py={2}
+    >
+      <Box p="2">
+        <Text
+          style={{
+            fontSize: 16,
+            color: "#fff",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          Arrive
+        </Text>
+        <Text
+          style={{
+            fontSize: 8,
+            color: "#fff",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          Today at {arrival}
+        </Text>
+      </Box>
+      <Box p="2">
         <Text
           style={{
             fontSize: 12,
-            fontWeight: "bold",
-            color: "#FFE040",
+            color: "#ffe040",
+            marginLeft: 10,
           }}
         >
-          {data}
+          1 hr
+        </Text>
+      </Box>
+      <Box p="2">
+        <Text
+          style={{
+            fontSize: 16,
+            color: "#fff",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          Depart
         </Text>
         <Text
           style={{
-            fontSize: 10,
+            fontSize: 8,
+            color: "#fff",
             fontWeight: "bold",
-            color: "#FFF",
+            marginLeft: 10,
           }}
         >
-          {dataName}
+          Today at {departure}
         </Text>
-      </Flex>
+      </Box>
     </Flex>
-  </View>
+    <Text
+      style={{
+        fontSize: 14,
+        color: "#fff",
+        fontWeight: "bold",
+      }}
+      my={2}
+    >
+      {cost} estimated
+    </Text>
+  </Flex>
+);
+
+const TotalEarningCard = ({ today, yesterday, week, month }) => (
+  <Flex
+    w="90%"
+    mx={"auto"}
+    my={4}
+    py={2}
+    backgroundColor={"#FFE040"}
+    borderRadius={10}
+  >
+    <Text
+      style={{
+        fontSize: 14,
+        color: "#0d0d0d",
+        fontWeight: "bold",
+      }}
+      my={2}
+      ml={4}
+    >
+      TOTAL EARNINGS
+    </Text>
+    <Flex
+      flexDirection={"row"}
+      alignItems={"center"}
+      justifyContent={"space-around"}
+      py={2}
+    >
+      <Box p="2">
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          {today}
+        </Text>
+        <Text
+          style={{
+            fontSize: 8,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          Today
+        </Text>
+      </Box>
+      <Box p="2">
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          {yesterday}
+        </Text>
+        <Text
+          style={{
+            fontSize: 8,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          Yesterday
+        </Text>
+      </Box>
+      <Box p="2">
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          {week}
+        </Text>
+        <Text
+          style={{
+            fontSize: 8,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          Last week
+        </Text>
+      </Box>
+      <Box p="2">
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          {month}
+        </Text>
+        <Text
+          style={{
+            fontSize: 8,
+            color: "#0d0d0d",
+            fontWeight: "bold",
+            marginLeft: 10,
+          }}
+        >
+          This Month
+        </Text>
+      </Box>
+    </Flex>
+  </Flex>
 );
 
 export function Booking() {
@@ -81,8 +239,20 @@ export function Booking() {
       >
         Current Bookings
       </Text>
-      <Flex mt={8} alignItems="center" flexDirection={"row"}>
-        <View marginLeft={20}>
+      <ScrollView
+        mt={4}
+        pb={10}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Flex
+          mt={8}
+          alignItems="center"
+          justifyContent={"center"}
+          flexDirection={"row"}
+        >
           <Image
             alt={"addres1"}
             source={{
@@ -92,80 +262,68 @@ export function Booking() {
             resizeMode={"cover"}
             borderRadius={10}
           />
-        </View>
-        <View width={"70%"} marginLeft={4}>
-          <Text
-            style={{
-              fontSize: 10,
-              color: "#fff",
-              fontWeight: "bold",
-            }}
-          >
-            Your Address
-          </Text>
-          <Text
-            style={{
-              fontSize: 10,
-              color: "#fff",
-            }}
-          >
-            4/1, 2nd Floor, 4th Cross, 4th block, Koramangala, Bengaluru
-          </Text>
-          <Text
-            style={{
-              fontSize: 10,
-              color: "#FFE040",
-              fontWeight: "bold",
-            }}
-          >
-            4 Ports available{" "}
-          </Text>
-        </View>
-      </Flex>
-      <Divider
-        my="2"
-        style={{
-          backgroundColor: "#E5E5E588",
-          width: "80%",
-          height: 1,
-          marginTop: 20,
-          marginBottom: 10,
-        }}
-      />
-      <Box
-        w="100%"
-        h="100%"
-        alignItems="center"
-        justifyContent="center"
-        flexDirection="column"
-      ></Box>
+          <View width={"1/2"} marginLeft={4}>
+            <Text
+              style={{
+                fontSize: 10,
+                color: "#fff",
+                fontWeight: "bold",
+              }}
+            >
+              Your Address
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: "#fff",
+              }}
+            >
+              4/1, 2nd Floor, 4th Cross, 4th block, Koramangala, Bengaluru
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: "#FFE040",
+                fontWeight: "bold",
+              }}
+            >
+              4 Ports available{" "}
+            </Text>
+          </View>
+        </Flex>
 
-      <Button
-        mt={"auto"}
-        rounded="sm"
-        bgColor={"#FFE040"}
-        _text={{
-          color: "#2B2B2B",
-          fontWeight: "bold",
-          fontSize: 14,
-        }}
-        w="90%"
-      >
-        VIEW PLANS
-      </Button>
-      <Button
-        my={4}
-        rounded="sm"
-        bgColor={"#FFE040"}
-        _text={{
-          color: "#2B2B2B",
-          fontWeight: "bold",
-          fontSize: 14,
-        }}
-        w="90%"
-      >
-        ENTER VENDOR DETAILS
-      </Button>
+        <Divider
+          style={{
+            backgroundColor: "#E5E5E588",
+            width: "80%",
+            height: 1,
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+          mx={"auto"}
+        />
+        {["$56", "$78", "$44", "$56", "$78", "$44"].map((cost, index) => (
+          <>
+            <BookingCard
+              arrival="12:00"
+              departure="13:00"
+              cost={cost}
+              key={index + 1}
+            />
+            <Divider
+              style={{
+                backgroundColor: "#E5E5E588",
+                width: "80%",
+                height: 1,
+                marginTop: 10,
+                marginBottom: 10,
+              }}
+              mx={"auto"}
+            />
+          </>
+        ))}
+      </ScrollView>
+      <TotalEarningCard today="$56" yesterday="$78" week="$120" month="$560" />
     </Box>
   );
 }
