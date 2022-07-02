@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   Box,
   Center,
@@ -15,7 +15,7 @@ import {
   Spacer,
   View,
 } from "native-base";
-import { logout } from "../../services/auth.service";
+import { getGarageDetails, logout } from "../../services/auth.service";
 
 const InfoBox = ({ image, data, dataName }) => (
   <View
@@ -62,93 +62,106 @@ const InfoBox = ({ image, data, dataName }) => (
 );
 
 export function Garage() {
-  return (
-    <Box
-      safeArea
-      w="100%"
-      h="100%"
-      backgroundColor={"#2B2B2B"}
-      alignItems="center"
-    >
-      <Image
-        source={{
-          uri: "https://www.pngmart.com/files/22/Tesla-PNG-Transparent.png",
-        }}
-        alt="mycar"
-        style={{ width: 400, height: 160, marginTop: 64 }}
-      />
-      <Text
-        style={{
-          fontSize: 20,
-          color: "#fff",
-          fontWeight: "bold",
-          marginTop: 30,
-        }}
-      >
-        Tesla Model X
-      </Text>
-      <Flex
-        mt={12}
-        alignItems="center"
-        flexDirection={"row"}
-        justifyContent={"center"}
-      >
-        <InfoBox
-          image={require("../../assets/garage/battery.png")}
-          data={"50%"}
-          dataName={"CHARGE"}
-        />
-        <InfoBox
-          image={require("../../assets/garage/health.png")}
-          data={"Good"}
-          dataName={"HEALTH"}
-        />
-      </Flex>
-      <Flex
-        mt={2}
-        alignItems="center"
-        flexDirection={"row"}
-        justifyContent={"center"}
-      >
-        <InfoBox
-          image={require("../../assets/garage/time.png")}
-          data={"5h 30mins"}
-          dataName={"TIME EST"}
-        />
-        <InfoBox
-          image={require("../../assets/garage/voltage.png")}
-          data={"315 V"}
-          dataName={"VOLTAGE"}
-        />
-      </Flex>
+  const [garageData, setGarageData] = useState(null);
 
-      <Button
-        mt={"auto"}
-        rounded="sm"
-        bgColor={"#FFE040"}
-        _text={{
-          color: "#2B2B2B",
-          fontWeight: "bold",
-          fontSize: 14,
-        }}
-        w="90%"
+  useEffect(() => {
+    (async () => {
+      let data = await getGarageDetails();
+      setGarageData(data.garageDetails);
+    })();
+  }, []);
+
+  if (garageData) {
+    return (
+      <Box
+        safeArea
+        w="100%"
+        h="100%"
+        backgroundColor={"#2B2B2B"}
+        alignItems="center"
       >
-        VIEW PLANS
-      </Button>
-      <Button
-        my={4}
-        rounded="sm"
-        bgColor={"#FFE040"}
-        _text={{
-          color: "#2B2B2B",
-          fontWeight: "bold",
-          fontSize: 14,
-        }}
-        w="90%"
-      >
-        ENTER VENDOR DETAILS
-      </Button>
-    </Box>
-  );
+        <Image
+          source={{
+            uri: "https://www.pngmart.com/files/22/Tesla-PNG-Transparent.png",
+          }}
+          alt="mycar"
+          style={{ width: 400, height: 160, marginTop: 64 }}
+        />
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#fff",
+            fontWeight: "bold",
+            marginTop: 30,
+          }}
+        >
+          {garageData.brand} {garageData.model}
+        </Text>
+        <Flex
+          mt={12}
+          alignItems="center"
+          flexDirection={"row"}
+          justifyContent={"center"}
+        >
+          <InfoBox
+            image={require("../../assets/garage/battery.png")}
+            data={garageData.charge * 100 + "%"}
+            dataName={"CHARGE"}
+          />
+          <InfoBox
+            image={require("../../assets/garage/health.png")}
+            data={garageData.health}
+            dataName={"HEALTH"}
+          />
+        </Flex>
+        <Flex
+          mt={2}
+          alignItems="center"
+          flexDirection={"row"}
+          justifyContent={"center"}
+        >
+          <InfoBox
+            image={require("../../assets/garage/time.png")}
+            data={garageData.etc + " Hours"}
+            dataName={"TIME EST"}
+          />
+          <InfoBox
+            image={require("../../assets/garage/voltage.png")}
+            data={garageData.voltage}
+            dataName={"VOLTAGE"}
+          />
+        </Flex>
+
+        <Button
+          mt={"auto"}
+          rounded="sm"
+          bgColor={"#FFE040"}
+          _text={{
+            color: "#2B2B2B",
+            fontWeight: "bold",
+            fontSize: 14,
+          }}
+          w="90%"
+        >
+          VIEW PLANS
+        </Button>
+        <Button
+          my={4}
+          rounded="sm"
+          bgColor={"#FFE040"}
+          _text={{
+            color: "#2B2B2B",
+            fontWeight: "bold",
+            fontSize: 14,
+          }}
+          w="90%"
+        >
+          ENTER VENDOR DETAILS
+        </Button>
+      </Box>
+    );
+  } else {
+    return <Text>Loading</Text>;
+  }
 }
 export default Garage;
