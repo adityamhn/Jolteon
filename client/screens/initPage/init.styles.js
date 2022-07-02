@@ -1,11 +1,11 @@
 import { Box, Button } from "native-base";
 import styled from "styled-components";
 
-
-export const Container = styled(Box)`
-`
+export const Container = styled(Box)``;
 
 export const GetStartedButton = styled(Button)`
-backgroundColor: #FFE040;
-border-radius: 50px;
-`
+  background-color: #ffe040;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+`;

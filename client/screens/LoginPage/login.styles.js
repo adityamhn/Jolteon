@@ -11,6 +11,7 @@ export const AppContainer = styled(Container)`
   flex: 1;
   width: 100%;
   padding: 0;
+  font-family: Montserrat;
 `;
 
 export const LoginHeading = styled.Text`
@@ -24,7 +25,7 @@ export const WelcomeText = styled.Text`
   font-family: MontserratBold;
   font-size: 40px;
   color: #565656;
-  margin-top: 32px;
+  margin-top: 90px;
 `;
 
 export const InputField = styled(Input)`
