@@ -146,3 +146,59 @@ export const sellerAddProfileImage = async (file) => {
     throw err;
   }
 };
+
+export const buyPlan = async (buyerdata) => {
+  try {
+    let uid = await AsyncStorage.getItem("@userId");
+    let q = query(collection(db, "buyers"), where("uid", "==", uid));
+    let getBuyerData = await getDocs(q);
+    let docId;
+    getBuyerData.forEach((doc) => {
+      docId = doc.id;
+    });
+    let upBuyer = await updateDoc(doc(db, "buyers", docId), {
+      subscription: buyerdata.subscription,
+    });
+    return { message: "Plan Booked!" };
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const book = async (bookingData) => {
+  try {
+    let uid = await AsyncStorage.getItem("@userId");
+    let sellerData = await getDoc(doc(db, "sellers", bookingData.sid));
+    let upSellerData = await updateDoc(doc(db, "sellers", bookingData.sid), {
+      bookings: [
+        ...sellerData.data().bookings,
+        {
+          time: bookingData.time,
+          status: bookingData.status,
+          date: bookingData.date,
+        },
+      ],
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getGarageDetails = async (garageData) => {
+  try {
+    let uid = await AsyncStorage.getItem("@userId");
+    let q = query(collection(db, "buyers"), where("uid", "==", uid));
+    let getBuyerData = await getDocs(q);
+    console.log(getBuyerData.data());
+    let garageDetails = [];
+    getBuyerData.forEach((doc) => {
+      garageDetails.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    return { message: "Sellers found", garageDetails: garageDetails[0] };
+  } catch (err) {
+    throw err;
+  }
+};
