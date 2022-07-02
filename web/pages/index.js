@@ -5,7 +5,6 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const { user, setUser } = useStore();
-  console.log("🚀 ~ file: index.js ~ line 9 ~ Home ~ user", user);
 
   return (
     <div className={styles.container}>
@@ -17,7 +16,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome {user.name} to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to {user?.name} <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
