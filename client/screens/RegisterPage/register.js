@@ -8,6 +8,7 @@ import {
   Input,
   Button,
 } from "native-base";
+import { register } from "../../services/auth.service";
 
 export function Register() {
   const [formData, setData] = useState({});
@@ -39,6 +40,7 @@ export function Register() {
           <FormControl>
             <FormControl.Label>Email</FormControl.Label>
             <Input
+              isRequired
               onChangeText={(value) => {
                 setData({ ...formData, email: value });
               }}
@@ -47,6 +49,7 @@ export function Register() {
           <FormControl>
             <FormControl.Label>Password</FormControl.Label>
             <Input
+              isRequired
               onChangeText={(value) => {
                 setData({ ...formData, password: value });
               }}
@@ -56,6 +59,7 @@ export function Register() {
           <FormControl>
             <FormControl.Label>Name</FormControl.Label>
             <Input
+              isRequired
               onChangeText={(value) => {
                 setData({ ...formData, name: value });
               }}
@@ -64,8 +68,16 @@ export function Register() {
           <Button
             mt="2"
             colorScheme="indigo"
-            onPress={() => {
-              console.log(formData);
+            onPress={async () => {
+              if (
+                formData.name != null &&
+                formData.password != null &&
+                formData.email != null
+              ) {
+                await register(formData);
+              } else {
+                console.log("Incomplete information");
+              }
             }}
           >
             Sign up

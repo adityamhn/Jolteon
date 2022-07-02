@@ -1,4 +1,9 @@
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 
 const db = getFirestore();
@@ -6,23 +11,21 @@ const auth = getAuth();
 
 export const register = async (regdata) => {
   try {
-    let { email, password, name, address, phoneNumber, isSeller, isBuyer } =
-      regdata;
+    let { email, password, name } = regdata;
+    console.log(regdata);
     let user = await createUserWithEmailAndPassword(auth, email, password);
     console.log(user.user.uid);
     let userData = await setDoc(doc(db, "users", user.user.uid), {
       name: name,
       email: email,
-      address: address,
-      phoneNumber: phoneNumber,
-      isSeller: isSeller,
-      isBuyer: isBuyer,
     });
+    // add cid or uid afterwards
     console.log(user);
     console.log(userData);
+    // let persistence = await setPersistence(auth, browserSessionPersistence);
     return { message: "Registered", user: user };
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
   }
 };
 
