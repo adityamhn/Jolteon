@@ -23,7 +23,7 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 import { useStore } from "../store/store";
 
-const { getState } = useStore;
+const { getState, setState } = useStore;
 
 export const writeToDeviceCollection = async () => {
   await setDoc(doc(db, "devices", "device-1"), {
@@ -67,6 +67,7 @@ export const login = async (email, password) => {
     let userdata = await getDoc(doc(db, "users", user.user.uid));
     if (userdata.exists()) {
       console.log("Document data:", userdata.data());
+      setState(userdata.data());
       return { message: "signed-in", user: user, userdata: userdata.data() };
     } else {
       return { message: "no data found" };
