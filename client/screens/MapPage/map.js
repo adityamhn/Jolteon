@@ -1,8 +1,10 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import mapStyle from "./mapStyle";
 import * as Location from "expo-location";
+import { Fab, Icon } from "native-base";
+import { IconFill, IconOutline } from "@ant-design/icons-react-native";
 
 export function Map() {
   const [location, setLocation] = useState(null);
@@ -31,9 +33,16 @@ export function Map() {
 
   return (
     <View style={styles.container}>
+      <Fab
+        renderInPortal={false}
+        shadow={2}
+        size="sm"
+        icon={<IconOutline name="plus" />}
+      />
       {location && location.coords != null ? (
         <MapView
           provider={PROVIDER_GOOGLE}
+          customMapStyle={mapStyle}
           region={{
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
@@ -57,7 +66,12 @@ export function Map() {
               longitude: location.coords.longitude + 0.001,
             }}
             title={"Charging Station"}
-          ></Marker>
+          >
+            <Image
+              source={require("./yellowmarker.png")}
+              style={{ height: 35, width: 35 }}
+            />
+          </Marker>
           {/* Swap station markers */}
           <Marker
             coordinate={{
@@ -65,7 +79,12 @@ export function Map() {
               longitude: location.coords.longitude - 0.001,
             }}
             title={"Swap Station"}
-          ></Marker>
+          >
+            <Image
+              source={require("./greenmarker.png")}
+              style={{ height: 35, width: 35 }}
+            />
+          </Marker>
         </MapView>
       ) : (
         <Text>{text}</Text>
