@@ -1,27 +1,27 @@
-import "react-native-gesture-handler";
-import * as React from "react";
-import { View, Text } from "react-native";
+import React from "react";
+import { initializeApp } from "firebase/app";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { firebaseConfig } from "./firebaseconfig";
+import Login from "./screens/LoginPage/login";
+import Register from "./screens/RegisterPage/register";
+import Dashboard from "./screens/DashboardPage/dashboard";
+import { NativeBaseProvider } from "native-base";
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
-function App() {
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+      <NativeBaseProvider>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </Stack.Navigator>
+      </NativeBaseProvider>
     </NavigationContainer>
   );
 }
-
-export default App;
