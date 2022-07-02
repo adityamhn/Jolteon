@@ -303,13 +303,8 @@ export function Booking() {
           mx={"auto"}
         />
         {["$56", "$78", "$44", "$56", "$78", "$44"].map((cost, index) => (
-          <>
-            <BookingCard
-              arrival="12:00"
-              departure="13:00"
-              cost={cost}
-              key={index + 1}
-            />
+          <React.Fragment key={index + 1}>
+            <BookingCard arrival="12:00" departure="13:00" cost={cost} />
             <Divider
               style={{
                 backgroundColor: "#E5E5E588",
@@ -320,7 +315,7 @@ export function Booking() {
               }}
               mx={"auto"}
             />
-          </>
+          </React.Fragment>
         ))}
       </ScrollView>
       <TotalEarningCard today="$56" yesterday="$78" week="$120" month="$560" />

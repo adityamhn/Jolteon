@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { login } from "../../services/auth.service";
 import { Container } from "../initPage/init.styles";
-import logo from "../../assets/fulllogo.png"
+import logo from "../../assets/fulllogo.png";
 import { Button, FormControl, Image, Input, VStack } from "native-base";
 import { WelcomeText, InputField } from "./login.styles";
 
@@ -9,12 +9,18 @@ export function Login({ navigation }) {
   const [formData, setData] = useState({});
 
   return (
-    <Container flex="1" backgroundColor="#0d0d0d" style={{ paddingHorizontal: 32 }}>
-      <Image source={logo} style={{ width: 130, height: 40, marginLeft: -18 }} />
+    <Container
+      flex="1"
+      backgroundColor="#0d0d0d"
+      style={{ paddingHorizontal: 32 }}
+    >
+      <Image
+        source={logo}
+        style={{ width: 130, height: 40, marginLeft: -18 }}
+        alt={"logo"}
+      />
 
-      <WelcomeText>
-        WELCOME BACK
-      </WelcomeText>
+      <WelcomeText>WELCOME BACK</WelcomeText>
 
       <VStack space={3} mt="5">
         <FormControl isRequired>
@@ -31,7 +37,7 @@ export function Login({ navigation }) {
             variant="filled"
             placeholder="Enter your password"
             onChangeText={(value) => {
-              setData({ ...formData, email: value });
+              setData({ ...formData, password: value });
             }}
           />
         </FormControl>
@@ -45,7 +51,7 @@ export function Login({ navigation }) {
           Sign in
         </Button>
       </VStack>
-    </Container >
+    </Container>
   );
 }
 
