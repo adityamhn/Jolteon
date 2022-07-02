@@ -3,7 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Map from "../screens/MapPage/map";
 import Profile from "../screens/ProfilePage/profile";
 import Garage from "../screens/GaragePage/garage";
-import { Ionicons } from "@expo/vector-icons";
+import { Image, View } from "native-base";
+import { Booking } from "../screens/BookingPage/booking";
 
 const Tabs = createBottomTabNavigator();
 
@@ -12,27 +13,85 @@ export const AppNavigator = () => (
     initialRouteName="Map"
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
-
-        if (route.name === "Home") {
-          iconName = focused
-            ? "ios-information-circle"
-            : "ios-information-circle-outline";
-        } else if (route.name === "Settings") {
-          iconName = focused ? "ios-list-box" : "ios-list";
+        if (route.name === "Garage") {
+          return (
+            <View>
+              <Image
+                w={6}
+                h={6}
+                resizeMode={"contain"}
+                alt={"garage"}
+                source={
+                  focused
+                    ? require(`../assets/tab/garage.png`)
+                    : require(`../assets/tab/ugarage.png`)
+                }
+              />
+            </View>
+          );
         }
-
-        // You can return any component that you like here!
-        return <Ionicons name={iconName} size={size} color={color} />;
+        if (route.name === "Map") {
+          return (
+            <Image
+              w={6}
+              h={6}
+              resizeMode={"contain"}
+              alt={"map"}
+              source={
+                focused
+                  ? require(`../assets/tab/map.png`)
+                  : require(`../assets/tab/umap.png`)
+              }
+            />
+          );
+        }
+        if (route.name === "Bookings") {
+          return (
+            <Image
+              w={6}
+              h={6}
+              resizeMode={"contain"}
+              alt={"map"}
+              source={
+                focused
+                  ? require(`../assets/tab/map.png`)
+                  : require(`../assets/tab/umap.png`)
+              }
+            />
+          );
+        }
+        if (route.name === "Profile") {
+          return (
+            <Image
+              w={6}
+              h={6}
+              resizeMode={"contain"}
+              alt={"map"}
+              source={
+                focused
+                  ? require(`../assets/tab/profile.png`)
+                  : require(`../assets/tab/uprofile.png`)
+              }
+            />
+          );
+        }
       },
-      tabBarActiveTintColor: "tomato",
+      tabBarActiveTintColor: "#FFE040",
       tabBarInactiveTintColor: "gray",
       headerShown: false,
+      tabBarStyle: {
+        backgroundColor: "#2B2B2B",
+        height: 70,
+        paddingBottom: 10,
+        paddingTop: 10,
+        borderColor: "transparent",
+        shadowColor: "transparent",
+      },
     })}
   >
     <Tabs.Screen name="Map" component={Map} />
     <Tabs.Screen name="Garage" component={Garage} />
-    <Tabs.Screen name="Bookings" component={Map} />
+    <Tabs.Screen name="Bookings" component={Booking} />
     <Tabs.Screen name="Profile" component={Profile} />
   </Tabs.Navigator>
 );
