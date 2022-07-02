@@ -1,4 +1,4 @@
-import { Center, Container, Heading } from "native-base";
+import { Center, Container, Heading, Input } from "native-base";
 import styled from "styled-components";
 
 export const AppCenter = styled(Center)`
@@ -19,3 +19,16 @@ font-family:Montserrat;
 font-size:56px;
 font-weight:500;
 `
+
+export const WelcomeText = styled.Text`
+font-family:Montserrat;
+font-size:68px;
+font-weight:bold;
+color:#565656;
+margin-top:24px;
+`
+
+export const InputField = styled(Input)`
+background-color:#414141;
+border:0px;
+`;

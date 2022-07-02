@@ -3,8 +3,60 @@ import firebase from "./firebase";
 import { Navigation } from "./navigation";
 import "react-native-gesture-handler";
 import { SafeArea } from "./components/SafeArea.component";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, extendTheme } from "native-base";
 import { useFonts } from "expo-font";
+
+const theme = extendTheme({
+  fontConfig: {
+    Roboto: {
+      100: {
+        normal: 'Montserrat-Light',
+        italic: 'Montserrat-LightItalic',
+      },
+      200: {
+        normal: 'Montserrat-Light',
+        italic: 'Montserrat-LightItalic',
+      },
+      300: {
+        normal: 'Montserrat-Light',
+        italic: 'Montserrat-LightItalic',
+      },
+      400: {
+        normal: 'Montserrat-Regular',
+        italic: 'Montserrat-Italic',
+      },
+      500: {
+        normal: 'Montserrat-Medium',
+      },
+      600: {
+        normal: 'Montserrat-Medium',
+        italic: 'Montserrat-MediumItalic',
+      },
+      // Add more variants
+      //   700: {
+      //     normal: 'Montserrat-Bold',
+      //   },
+      //   800: {
+      //     normal: 'Montserrat-Bold',
+      //     italic: 'Montserrat-BoldItalic',
+      //   },
+      //   900: {
+      //     normal: 'Montserrat-Bold',
+      //     italic: 'Montserrat-BoldItalic',
+      //   },
+    },
+  },
+
+  // Make sure values below matches any of the keys in `fontConfig`
+  fonts: {
+    heading: 'Montserrat',
+    body: 'Montserrat',
+    mono: 'Montserrat',
+  },
+});
+
+
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Montserrat: require("./fonts/Montserrat.ttf"),
@@ -15,7 +67,7 @@ export default function App() {
   }
   return (
     <SafeArea>
-      <NativeBaseProvider>
+      <NativeBaseProvider theme={theme}>
         <Navigation />
       </NativeBaseProvider>
     </SafeArea>
