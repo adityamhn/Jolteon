@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   Box,
   Center,
@@ -18,8 +18,9 @@ import {
   ScrollView,
 } from "native-base";
 import { logout } from "../../services/auth.service";
+import { allBookingDetails } from "../../services/auth.service";
 
-const BookingCard = ({ arrival, departure, cost }) => (
+const BookingCard = ({ arrival, departure, cost, status }) => (
   <Flex
     w="90%"
     mx={"auto"}
@@ -98,6 +99,16 @@ const BookingCard = ({ arrival, departure, cost }) => (
       my={2}
     >
       {cost} estimated
+    </Text>
+    <Text
+      style={{
+        fontSize: 14,
+        color: "#fff",
+        fontWeight: "bold",
+      }}
+      my={2}
+    >
+      {status}
     </Text>
   </Flex>
 );
@@ -221,6 +232,17 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
 );
 
 export function Booking() {
+  const [bookings, setAllBookings] = useState(null);
+  const [sellerData, setSellerData] = useState(null);
+  useEffect(() => {
+    (async () => {
+      let data = await allBookingDetails();
+      console.log(data.bookingDetails);
+      console.log(data.sellerData);
+      setAllBookings(data.bookingDetails);
+      setSellerData(data.sellerData);
+    })();
+  }, []);
   return (
     <Box
       safeArea
@@ -302,21 +324,34 @@ export function Booking() {
           }}
           mx={"auto"}
         />
-        {["$56", "$78", "$44", "$56", "$78", "$44"].map((cost, index) => (
-          <React.Fragment key={index + 1}>
-            <BookingCard arrival="12:00" departure="13:00" cost={cost} />
-            <Divider
-              style={{
-                backgroundColor: "#E5E5E588",
-                width: "80%",
-                height: 1,
-                marginTop: 10,
-                marginBottom: 10,
-              }}
-              mx={"auto"}
-            />
-          </React.Fragment>
-        ))}
+
+        {bookings &&
+          sellerData &&
+          bookings[0].map((booking, index) => (
+            <React.Fragment key={index + 1}>
+              {console.log("helloin", booking?.fromtime.toDate())}
+              <BookingCard
+                arrival={new Date(
+                  booking?.fromtime.toDate()
+                ).toLocaleTimeString()}
+                departure={new Date(
+                  booking?.totime.toDate()
+                ).toLocaleTimeString()}
+                cost={"$" + sellerData.fee + "/hour"}
+                status={booking.status}
+              />
+              <Divider
+                style={{
+                  backgroundColor: "#E5E5E588",
+                  width: "80%",
+                  height: 1,
+                  marginTop: 10,
+                  marginBottom: 10,
+                }}
+                mx={"auto"}
+              />
+            </React.Fragment>
+          ))}
       </ScrollView>
       <TotalEarningCard today="$56" yesterday="$78" week="$120" month="$560" />
     </Box>
