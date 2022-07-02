@@ -53,7 +53,11 @@ export default function Home() {
                 borderBottomLeftRadius: "0",
               }}
             >
-              <ArrowRightOutlined />
+              <ArrowRightOutlined
+                style={{
+                  color: "#0d0d0d",
+                }}
+              />
             </Button>
           </div>
           <div

@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useStore } from "../store/store";
 import { useRouter } from "next/router";
 import { NativeBaseProvider } from "native-base";
+import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
