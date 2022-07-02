@@ -126,7 +126,16 @@ export function Map() {
               source={{
                 uri: "https://images.unsplash.com/photo-1605282003441-a966bb348137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGV0cm9sJTIwc3RhdGlvbnxlbnwwfHwwfHw%3D&w=1000&q=80",
               }}
-              style={{ width: 90, height: 90 }}
+              style={{
+                width: 90,
+                height: 90,
+                shadowColor: "black",
+                shadowOpacity: 0.5,
+                shadowOffset: { width: 0, height: 4 },
+                shadowRadius: 15,
+                elevation: 4,
+                backgroundColor: "black",
+              }}
               resizeMode={"cover"}
               borderRadius={10}
             />
@@ -142,9 +151,8 @@ export function Map() {
               <Text
                 style={{
                   fontSize: 16,
-                  letterSpacing: 3,
                   color: "#fff",
-                  fontWeight: "bold",
+                  fontFamily: "MontserratMedium",
                 }}
               >
                 {console.log(openMarker)}
@@ -154,15 +162,16 @@ export function Map() {
                 style={{
                   fontSize: 12,
                   color: "#fff",
+                  fontFamily: "MontserratLight",
                 }}
               >
-                {openMarker.address}, Bengaluru
+                {openMarker.address}
               </Text>
               <Text
                 style={{
                   fontSize: 12,
                   color: "#FFE040",
-                  fontWeight: "bold",
+                  fontFamily: "MontserratLight",
                 }}
               >
                 {openMarker.numberofports} ports available{" "}
@@ -191,9 +200,9 @@ export function Map() {
             <Box p="2">
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 15,
                   color: "#ffe040",
-                  fontWeight: "light",
+                  fontFamily: "MontserratMedium",
                   marginLeft: 10,
                 }}
               >
@@ -201,10 +210,11 @@ export function Map() {
               </Text>
               <Text
                 style={{
-                  fontSize: 8,
+                  fontSize: 12,
                   color: "#fff",
-                  fontWeight: "bold",
+                  fontFamily: "MontserratLight",
                   marginLeft: 10,
+                  opacity: 0.5,
                 }}
               >
                 PORT TYPE
@@ -213,9 +223,9 @@ export function Map() {
             <Box p="2">
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 15,
                   color: "#ffe040",
-                  fontWeight: "light",
+                  fontFamily: "MontserratMedium",
                   marginLeft: 10,
                 }}
               >
@@ -223,10 +233,11 @@ export function Map() {
               </Text>
               <Text
                 style={{
-                  fontSize: 8,
+                  fontSize: 12,
                   color: "#fff",
-                  fontWeight: "bold",
+                  fontFamily: "MontserratLight",
                   marginLeft: 10,
+                  opacity: 0.5,
                 }}
               >
                 COST
@@ -235,9 +246,9 @@ export function Map() {
             <Box p="2">
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 15,
                   color: "#ffe040",
-                  fontWeight: "light",
+                  fontFamily: "MontserratMedium",
                   marginLeft: 10,
                 }}
               >
@@ -245,10 +256,11 @@ export function Map() {
               </Text>
               <Text
                 style={{
-                  fontSize: 8,
+                  fontSize: 12,
                   color: "#fff",
-                  fontWeight: "bold",
+                  fontFamily: "MontserratLight",
                   marginLeft: 10,
+                  opacity: 0.5,
                 }}
               >
                 POWER
@@ -257,13 +269,93 @@ export function Map() {
           </Flex>
           <Text
             style={{
-              marginLeft: 32,
+              marginTop: 18,
+              marginLeft: 26,
               fontSize: 12,
               color: "#fff",
-              fontWeight: "bold",
+              fontFamily: "MontserratMedium",
             }}
           >
-            Choose your arrival and departure time
+            Additional Ammenities available here:
+          </Text>
+
+          <Flex
+            flexDirection={"row"}
+            alignItems={"center"}
+            justifyContent={"flex-start"}
+            py={2}
+          >
+            {openMarker.ameneties.map((item, idx) => {
+              let img;
+              if (item === "cafe") {
+                img = (
+                  <Image
+                    alt={"addres1"}
+                    source={require("../../assets/ameneties/cafe.png")}
+                    style={{ width: 24, height: 24 }}
+                    resizeMode={"contain"}
+                  />
+                );
+              } else if (item === "wc") {
+                img = (
+                  <Image
+                    alt={"addres1"}
+                    source={require("../../assets/ameneties/wc.png")}
+                    style={{ width: 24, height: 24 }}
+                    resizeMode={"contain"}
+                  />
+                );
+              } else if (item === "rooms") {
+                img = (
+                  <Image
+                    alt={"addres1"}
+                    source={require("../../assets/ameneties/rooms.png")}
+                    style={{ width: 24, height: 24 }}
+                    resizeMode={"contain"}
+                  />
+                );
+              }
+              return (
+                <Box
+                  p="3"
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  w={"1/3"}
+                >
+                  {img}
+                  <Text
+                    style={{
+                      fontSize: 9,
+                      color: "#fff",
+                      fontFamily: "MontserratMedium",
+                      marginTop: 10,
+                      textAlign: "center",
+                    }}
+                  >
+                    {item === "cafe"
+                      ? "CAFE"
+                      : item === "wc"
+                      ? "WASHROOM"
+                      : "ROOMS"}
+                  </Text>
+                </Box>
+              );
+            })}
+          </Flex>
+          <Text
+            style={{
+              marginTop: 18,
+              marginLeft: 26,
+              fontSize: 12,
+              color: "#fff",
+              fontFamily: "MontserratMedium",
+            }}
+          >
+            Book your <Text style={{ color: "#ffe040" }}>charger!</Text>
           </Text>
 
           <Flex
@@ -383,10 +475,36 @@ export function Map() {
             disabled={!departureDate || !arrivalDate}
             onPress={onBook}
           >
-            BOOK CHARGER
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={require("../../assets/map/Group.png")}
+                style={{
+                  height: 15,
+                  width: 15,
+                  marginRight: 6,
+                }}
+                resizeMode={"contain"}
+              />
+              <Text
+                style={{
+                  fontSize: 15,
+                  textAlign: "center",
+                  fontFamily: "MontserratMedium",
+                }}
+              >
+                BOOK CHARGER
+              </Text>
+            </View>
           </Button>
 
-          <Button
+          {/* <Button
             mx={"auto"}
             rounded="sm"
             bgColor={"#565656"}
@@ -398,92 +516,12 @@ export function Map() {
             w="80%"
           >
             SHOW DIRECTIONS
-          </Button>
-
-          <Text
-            style={{
-              marginTop: 20,
-              marginLeft: 32,
-              fontSize: 10,
-              color: "#fff",
-              fontWeight: "bold",
-            }}
-          >
-            Additional Ammenities available here:
-          </Text>
-
-          <Flex
-            flexDirection={"row"}
-            alignItems={"center"}
-            justifyContent={"flex-start"}
-            py={2}
-          >
-            {openMarker.ameneties.map((item, idx) => {
-              let img;
-              if (item === "cafe") {
-                img = (
-                  <Image
-                    alt={"addres1"}
-                    source={require("../../assets/ameneties/cafe.png")}
-                    style={{ width: 24, height: 24 }}
-                    resizeMode={"contain"}
-                  />
-                );
-              } else if (item === "wc") {
-                img = (
-                  <Image
-                    alt={"addres1"}
-                    source={require("../../assets/ameneties/wc.png")}
-                    style={{ width: 24, height: 24 }}
-                    resizeMode={"contain"}
-                  />
-                );
-              } else if (item === "rooms") {
-                img = (
-                  <Image
-                    alt={"addres1"}
-                    source={require("../../assets/ameneties/rooms.png")}
-                    style={{ width: 24, height: 24 }}
-                    resizeMode={"contain"}
-                  />
-                );
-              }
-              return (
-                <Box
-                  p="2"
-                  key={idx}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  w={"1/3"}
-                >
-                  {img}
-                  <Text
-                    style={{
-                      fontSize: 8,
-                      color: "#fff",
-                      fontWeight: "bold",
-                      marginTop: 6,
-                      textAlign: "center",
-                    }}
-                  >
-                    {item === "cafe"
-                      ? "CAFE"
-                      : item === "wc"
-                      ? "WASHROOM"
-                      : "ROOMS"}
-                  </Text>
-                </Box>
-              );
-            })}
-          </Flex>
+          </Button> */}
         </SwipeablePanel>
       )}
       {location && location.coords && allmarkers != null ? (
         <>
-          <View
+          {/* <View
             style={{ position: "absolute", top: 40, width: "100%", zIndex: 10 }}
           >
             <TextInput
@@ -501,7 +539,7 @@ export function Map() {
               placeholder={"Search"}
               placeholderTextColor={"#FFFFFF50"}
             />
-          </View>
+          </View> */}
           <MapView
             provider={PROVIDER_GOOGLE}
             showsUserLocation={true}
