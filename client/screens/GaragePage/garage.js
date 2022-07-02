@@ -1,21 +1,7 @@
-import React, { Component, useEffect, useState } from "react";
-import {
-  Box,
-  Center,
-  Heading,
-  VStack,
-  FormControl,
-  Input,
-  Link,
-  Text,
-  HStack,
-  Button,
-  Image,
-  Flex,
-  Spacer,
-  View,
-} from "native-base";
-import { getGarageDetails, logout } from "../../services/auth.service";
+import React, { useEffect, useState } from "react";
+import { Box, Text, Button, Image, Flex, View } from "native-base";
+import { ActivityIndicator, StyleSheet, Dimensions } from "react-native";
+import { getGarageDetails } from "../../services/auth.service";
 
 const InfoBox = ({ image, data, dataName }) => (
   <View
@@ -161,7 +147,25 @@ export function Garage() {
       </Box>
     );
   } else {
-    return <Text>Loading</Text>;
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#FFE040" />
+      </View>
+    );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#191A1A",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  map: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height - 50,
+  },
+});
+
 export default Garage;

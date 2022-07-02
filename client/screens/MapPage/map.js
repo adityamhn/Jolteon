@@ -1,10 +1,17 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
-import mapStyle from "./mapStyle";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Image,
+  ActivityIndicator,
+  TextInput,
+} from "react-native";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import mapStyle from "./mapStyle.json";
 import * as Location from "expo-location";
 import { Box, Button, Fab, Flex, Icon } from "native-base";
-import { IconFill, IconOutline } from "@ant-design/icons-react-native";
 import { getAllSeller } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
 
@@ -290,65 +297,87 @@ export function Map() {
           })}
         </Flex>
       </SwipeablePanel>
+
       {location && location.coords && allmarkers != null ? (
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          showsUserLocation={true}
-          showsMyLocationButton={true}
-          customMapStyle={mapStyle}
-          initialRegion={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          style={styles.map}
-        >
-          {/* Own Marker */}
-          <Marker
-            coordinate={{
+        <>
+          <View
+            style={{ position: "absolute", top: 40, width: "100%", zIndex: 10 }}
+          >
+            <TextInput
+              style={{
+                borderRadius: 4,
+                margin: 10,
+                color: "#fff",
+                borderColor: "#666",
+                backgroundColor: "#565656",
+                borderWidth: 1,
+                height: 45,
+                paddingHorizontal: 10,
+                fontSize: 18,
+              }}
+              placeholder={"Search"}
+              placeholderTextColor={"#FFFFFF50"}
+            />
+          </View>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+            customMapStyle={mapStyle}
+            initialRegion={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
             }}
-            title={"Your location"}
-          ></Marker>
-          {/* Other people station markers */}
-          {allmarkers.map((marker, idx) => {
-            return (
-              <Marker
-                coordinate={{
-                  latitude: marker.latitude,
-                  longitude: marker.longitude,
-                }}
-                key={idx}
-                title={"Charging Station"}
-                onPress={() => {
-                  openPanel();
-                }}
-              >
-                <Image
-                  source={require("./yellowmarker.png")}
-                  style={{ height: 35, width: 35 }}
-                />
-              </Marker>
-            );
-          })}
-          {/* Swap station markers */}
-          <Marker
-            coordinate={{
-              latitude: location.coords.latitude - 0.001,
-              longitude: location.coords.longitude - 0.001,
-            }}
-            title={"Swap Station"}
+            style={styles.map}
           >
-            <Image
-              source={require("./greenmarker.png")}
-              style={{ height: 35, width: 35 }}
-            />
-          </Marker>
-        </MapView>
+            {/* Own Marker */}
+            <Marker
+              coordinate={{
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+              }}
+              title={"Your location"}
+            ></Marker>
+            {/* Other people station markers */}
+            {allmarkers.map((marker, idx) => {
+              return (
+                <Marker
+                  coordinate={{
+                    latitude: marker.latitude,
+                    longitude: marker.longitude,
+                  }}
+                  key={idx}
+                  title={"Charging Station"}
+                  onPress={() => {
+                    openPanel();
+                  }}
+                >
+                  <Image
+                    source={require("./yellowmarker.png")}
+                    style={{ height: 35, width: 35 }}
+                  />
+                </Marker>
+              );
+            })}
+            {/* Swap station markers */}
+            <Marker
+              coordinate={{
+                latitude: location.coords.latitude - 0.001,
+                longitude: location.coords.longitude - 0.001,
+              }}
+              title={"Swap Station"}
+            >
+              <Image
+                source={require("./greenmarker.png")}
+                style={{ height: 35, width: 35 }}
+              />
+            </Marker>
+          </MapView>
+        </>
       ) : (
-        <Text>{text}</Text>
+        <ActivityIndicator size="large" color="#FFE040" />
       )}
     </View>
   );
@@ -357,7 +386,7 @@ export function Map() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#191A1A",
     alignItems: "center",
     justifyContent: "center",
   },
