@@ -173,7 +173,8 @@ export const book = async (bookingData) => {
       bookings: [
         ...sellerData.data()?.bookings,
         {
-          time: bookingData.time,
+          fromtime: bookingData.fromtime,
+          totime: bookingData.totime,
           status: bookingData.status,
           date: bookingData.date,
           uid: uid,
@@ -200,6 +201,26 @@ export const getGarageDetails = async () => {
       });
     });
     return { message: "Garage Details Found", garageDetails: garageDetails[0] };
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const allBookingDetails = async () => {
+  try {
+    let uid = auth.currentUser.uid;
+    let q = query(collection(db, "sellers"), where("uid", "==", uid));
+    let getSellerData = await getDocs(q);
+    let sellerDetails = [];
+    getSellerData.forEach((doc) => {
+      sellerDetails.push({
+        ...doc.data()?.bookings,
+      });
+    });
+    return {
+      message: "Booking Details Found",
+      bookingDetails: sellerDetails,
+    };
   } catch (err) {
     throw err;
   }
