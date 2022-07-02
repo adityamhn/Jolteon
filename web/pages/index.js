@@ -1,11 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useStore } from "../store/store";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const { user, setUser } = useStore();
-
   return (
     <div className={styles.container}>
       <Head>
@@ -16,7 +13,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to {user?.name} <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
@@ -53,16 +50,7 @@ export default function Home() {
             </p>
           </a>
         </div>
-        <div
-          onClick={() => {
-            setUser({
-              name: "Jolteon",
-              type: "Electric",
-            });
-          }}
-        >
-          Add some stuff
-        </div>
+        <div>Add some stuff</div>
       </main>
 
       <footer className={styles.footer}>
