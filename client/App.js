@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "./firebase";
 import { Navigation } from "./navigation";
-// import "react-native-gesture-handler";
+import "react-native-gesture-handler";
 import { SafeArea } from "./components/SafeArea.component";
 import { NativeBaseProvider } from "native-base";
 import { useFonts } from "expo-font";

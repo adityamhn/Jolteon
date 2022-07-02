@@ -9,12 +9,14 @@ import {
   Stack,
   VStack,
 } from "native-base";
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import { AppCenter, AppContainer, LoginHeading } from "./login.styles";
 import { login } from "../../services/auth.service";
 
 export function Login({ navigation }) {
+  const [formData, setData] = useState({});
+
   return (
     <AppCenter>
       <AppContainer>
