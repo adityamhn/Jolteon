@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     onAuthStateChanged(auth, (users) => {
       if (users) {
-        setUser(users);
+        setUser(...user, users.uid);
 
         if (["/", "/login", "/register"].includes(router.pathname)) {
           router.push("/user/dashboard");
