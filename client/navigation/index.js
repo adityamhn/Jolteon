@@ -6,6 +6,7 @@ import app from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 import { AppNavigator } from "./app.navigation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const auth = getAuth();
 const db = getFirestore();
@@ -16,8 +17,10 @@ export const Navigation = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        await AsyncStorage.setItem("@userId", user.uid);
         setUser(user);
       } else {
+        await AsyncStorage.setItem("@userId", null);
         setUser(null);
       }
     });
