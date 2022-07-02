@@ -1,19 +1,37 @@
 import Image from "next/image";
+import { Router } from "next/router";
 import React from "react";
 import jolteon from "../images/jolteon.svg";
 import Styles from "../styles/Navbar.module.scss";
-export default function Navbar() {
+import Button from "./Button";
+import { useRouter } from "next/router";
+
+export default function Navbar({ hide }) {
+  const router = useRouter();
   return (
     <div className={Styles.NavContainer}>
       <Image src={jolteon} alt="logo" height={80} width={200} />
-      <div className={Styles.NavLinks}>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Home</a>
-        <a href="#">Home</a>
-        <a href="#">Home</a>
-      </div>
-      <button>Login</button>
+      {!hide && (
+        <>
+          <div className={Styles.NavLinks}>
+            <a href="#">Home</a>
+            <a href="#">Swap Stations</a>
+            <a href="#">Charge Stations</a>
+            <a href="#">Support</a>
+            <a href="#">About Us</a>
+          </div>
+          <Button
+            outlined
+            text="LOGIN"
+            style={{
+              marginRight: "1rem",
+            }}
+            onClick={() => {
+              router.push("/login");
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }
