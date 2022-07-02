@@ -1,0 +1,14 @@
+.NavContainer {
+  display: flex;
+
+  .NavLinks {
+    color: #fff;
+    font-weight: 600;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    a {
+      padding: 0 0.5rem;
+    }
+  }
+}
