@@ -1,9 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-import { writeToDeviceCollection } from "../services/auth.service";
+import { useStore } from "../store/store";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const { user, setUser } = useStore();
+  console.log("🚀 ~ file: index.js ~ line 9 ~ Home ~ user", user);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +17,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome {user.name} to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
@@ -53,7 +56,10 @@ export default function Home() {
         </div>
         <div
           onClick={() => {
-            writeToDeviceCollection();
+            setUser({
+              name: "Jolteon",
+              type: "Electric",
+            });
           }}
         >
           Add some stuff
