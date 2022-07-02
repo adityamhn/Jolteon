@@ -112,14 +112,14 @@ export const addSeller = async (sellerdata) => {
 // }
 
 const authedUser = async () => {
-  // new Promise((resolve, reject) => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       console.log(user);
-  //       resolve("hello");
-  //     } else {
-  //       reject("no user found");
-  //     }
-  //   });
-  // });
+  new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user);
+        resolve("hello");
+      } else {
+        reject("no user found");
+      }
+    });
+  });
 };

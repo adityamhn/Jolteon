@@ -11,9 +11,7 @@ export default function Navbar({ hide }) {
   return (
     <div className={Styles.NavContainer}>
       <Image
-        style={{
-          cursor: "pointer",
-        }}
+        className="pointer"
         onClick={() => {
           router.push("/");
         }}
