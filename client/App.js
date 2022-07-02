@@ -8,29 +8,29 @@ import { useFonts } from "expo-font";
 
 const theme = extendTheme({
   fontConfig: {
-    Roboto: {
+    Montserrat: {
       100: {
-        normal: 'Montserrat-Light',
-        italic: 'Montserrat-LightItalic',
+        normal: "Montserrat",
+        italic: "Montserrat",
       },
       200: {
-        normal: 'Montserrat-Light',
-        italic: 'Montserrat-LightItalic',
+        normal: "Montserrat",
+        italic: "Montserrat",
       },
       300: {
-        normal: 'Montserrat-Light',
-        italic: 'Montserrat-LightItalic',
+        normal: "Montserrat",
+        italic: "Montserrat",
       },
       400: {
-        normal: 'Montserrat-Regular',
-        italic: 'Montserrat-Italic',
+        normal: "Montserrat",
+        italic: "Montserrat",
       },
       500: {
-        normal: 'Montserrat-Medium',
+        normal: "Montserrat",
       },
       600: {
-        normal: 'Montserrat-Medium',
-        italic: 'Montserrat-MediumItalic',
+        normal: "MontserratBold",
+        italic: "Montserrat-Italic",
       },
       // Add more variants
       //   700: {
@@ -49,17 +49,17 @@ const theme = extendTheme({
 
   // Make sure values below matches any of the keys in `fontConfig`
   fonts: {
-    heading: 'Montserrat',
-    body: 'Montserrat',
-    mono: 'Montserrat',
+    heading: "Montserrat",
+    body: "Montserrat",
+    mono: "Montserrat",
   },
 });
-
-
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     Montserrat: require("./fonts/Montserrat.ttf"),
+    MontserratBold: require("./fonts/Montserrat-Black.ttf"),
+    MontserratItalic: require("./fonts/Montserrat-Italic.ttf"),
   });
 
   if (!fontsLoaded) {
