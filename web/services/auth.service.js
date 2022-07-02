@@ -21,21 +21,12 @@ export const writeToDeviceCollection = async () => {
 
 export const register = async (regdata) => {
   try {
-    let {
-      email,
-      password,
-      fname,
-      lname,
-      address,
-      phoneNumber,
-      isSeller,
-      isBuyer,
-    } = regdata;
+    let { email, password, name, address, phoneNumber, isSeller, isBuyer } =
+      regdata;
     let user = await createUserWithEmailAndPassword(auth, email, password);
     console.log(user.user.uid);
     let userData = await setDoc(doc(db, "users", user.user.uid), {
-      fname: fname,
-      lname: lname,
+      name: name,
       email: email,
       address: address,
       phoneNumber: phoneNumber,
@@ -77,6 +68,7 @@ export const login = async (email, password) => {
 export const logout = async () => {
   try {
     let user = await signOut(auth);
+    console.log("logged-out", user);
     return { message: "logged-out", user: user || null };
   } catch (err) {
     return { code: err.code, message: err.message };

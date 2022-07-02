@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { register, login } from "../services/auth.service";
+import { register, login, logout } from "../services/auth.service";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
