@@ -9,6 +9,9 @@ import {
   inMemoryPersistence,
   onAuthStateChanged,
 } from "firebase/auth";
+import { useStore } from "../store/store";
+
+const { autheduser } = useStore();
 
 export const writeToDeviceCollection = async () => {
   await setDoc(doc(db, "devices", "device-1"), {
@@ -91,14 +94,16 @@ export const addSeller = async (sellerdata) => {
   try {
     let { stationName, portType, address, numberofports, amenities } =
       sellerdata;
-    let user = await authedUser();
-    let uid = user.uid;
+    // let user = await authedUser();
+    let uid = autheduser.uid;
     let sellerData = await setDoc(doc(db, "sellers"), {
       stationName: stationName,
       portType: portType,
       address: address,
       numberofports: numberofports,
       amenities: amenities,
+      longitude: longitude,
+      latitude: latitude,
       uid: uid,
     });
     return { message: "data set" };
@@ -107,9 +112,14 @@ export const addSeller = async (sellerdata) => {
   }
 };
 // hello
-// export const getAllSellers = async () => {
-
-// }
+export const getAllSellers = async () => {
+  try {
+    console.log(autheduser.uid);
+    return { message: "data set" };
+  } catch (err) {
+    throw err;
+  }
+};
 
 const authedUser = async () => {
   new Promise((resolve, reject) => {
