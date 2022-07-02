@@ -4,7 +4,8 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const db = getFirestore();
 const auth = getAuth();
@@ -41,7 +42,7 @@ export const login = async (email, password) => {
       return { message: "no data found" };
     }
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
   }
 };
 
@@ -51,6 +52,62 @@ export const logout = async () => {
     console.log("logged-out", user);
     return { message: "logged-out", user: user || null };
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
+  }
+};
+
+export const getAllSeller = async () => {
+  try {
+    let allSellers = await getDocs(collection(db, "sellers"));
+    let sellerDetails = [];
+    allSellers.forEach((doc) => {
+      sellerDetails.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    return { message: "Sellers found", sellerData: sellerDetails };
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getSpecSeller = async (sellerData) => {
+  try {
+    let sellerData = await getDoc(doc(db, "sellers", sellerData.sid));
+    return { message: "Sellers found", sellerData: sellerData.data() };
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const addSeller = async (sellerdata) => {
+  try {
+    let {
+      stationName,
+      portType,
+      address,
+      numberofports,
+      amenities,
+      longitude,
+      latitude,
+    } = sellerdata;
+    let uid = await AsyncStorage.getItem("@userId");
+    let sellerData = await setDoc(doc(db, "sellers"), {
+      stationName: stationName,
+      portType: portType,
+      address: address,
+      numberofports: numberofports,
+      amenities: amenities,
+      longitude: longitude,
+      latitude: latitude,
+      uid: uid,
+    });
+    let upUser = await updateDoc(doc(db, "users", uid), {
+      isSeller: true,
+    });
+    return { message: "data set" };
+  } catch (err) {
+    throw err;
   }
 };
