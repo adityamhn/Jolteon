@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, getDocs } from "firebase/firestore";
 
 const db = getFirestore();
 const auth = getAuth();
@@ -41,7 +41,7 @@ export const login = async (email, password) => {
       return { message: "no data found" };
     }
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
   }
 };
 
@@ -51,6 +51,31 @@ export const logout = async () => {
     console.log("logged-out", user);
     return { message: "logged-out", user: user || null };
   } catch (err) {
-    return { code: err.code, message: err.message };
+    throw err;
+  }
+};
+
+export const getAllSeller = async () => {
+  try {
+    let allSellers = await getDocs(collection(db, "sellers"));
+    let sellerDetails = [];
+    allSellers.forEach((doc) => {
+      sellerDetails.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    return { message: "Sellers found", sellerData: sellerDetails };
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getSpecSeller = async (sellerData) => {
+  try {
+    let sellerData = await getDoc(doc(db, "sellers", sellerData.sid));
+    return { message: "Sellers found", sellerData: sellerData.data() };
+  } catch (err) {
+    throw err;
   }
 };
