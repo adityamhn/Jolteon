@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Text, Button, Image, Flex, View } from "native-base";
-import { ActivityIndicator, StyleSheet, Dimensions } from "react-native";
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { getGarageDetails } from "../../services/auth.service";
+import { SwipeablePanel } from "rn-swipeable-panel";
 
 const InfoBox = ({ image, data, dataName }) => (
   <View
@@ -49,7 +55,22 @@ const InfoBox = ({ image, data, dataName }) => (
 
 export function Garage() {
   const [garageData, setGarageData] = useState(null);
+  const [isPanelActive, setIsPanelActive] = useState(false);
 
+  const [selectedPlan, setSelectedPlan] = useState("annually");
+
+  const panelProps = {
+    fullWidth: true,
+    openSmall: true,
+    showCloseButton: true,
+    smallPanelHeight: 600,
+    onClose: () => setIsPanelActive(false),
+    onPressCloseButton: () => setIsPanelActive(false),
+    style: {
+      backgroundColor: "#323232",
+    },
+    closeOnTouchOutside: true,
+  };
   useEffect(() => {
     (async () => {
       let data = await getGarageDetails();
@@ -127,10 +148,153 @@ export function Garage() {
             fontWeight: "bold",
             fontSize: 14,
           }}
+          onPress={() => setIsPanelActive(true)}
           w="90%"
         >
           VIEW PLANS
         </Button>
+        <SwipeablePanel {...panelProps} isActive={isPanelActive}>
+          <Flex
+            my={8}
+            alignItems="center"
+            justifyContent={"center"}
+            flexDirection={"row"}
+            mx={16}
+          >
+            <View>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              >
+                EV Charging Plans
+              </Text>
+            </View>
+          </Flex>
+          <TouchableOpacity
+            onPress={() => setSelectedPlan("annually")}
+            activeOpacity={1}
+          >
+            <View
+              flexDirection={"row"}
+              alignItems={"center"}
+              justifyContent={"space-around"}
+              my={2}
+              py={2}
+              mx={4}
+              borderColor={selectedPlan == "annually" ? "#ffe040" : "#2B2B2B"}
+              borderWidth={2}
+              borderRadius={"sm"}
+              style={{
+                backgroundColor: "#1d1d1d",
+              }}
+            >
+              <Box p="2">
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "#ffe040",
+                    fontWeight: "bold",
+                    marginLeft: 10,
+                  }}
+                >
+                  YEARLY PLAN
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: "#fff",
+                    marginLeft: 10,
+                  }}
+                >
+                  150 HOURS OF CHARGING PER MONTH
+                </Text>
+              </Box>
+              <Box p="2">
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "#ffe040",
+                    fontWeight: "bold",
+                    marginLeft: 10,
+                  }}
+                >
+                  $300/mo
+                </Text>
+              </Box>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => setSelectedPlan("monthly")}
+            activeOpacity={1}
+          >
+            <View
+              flexDirection={"row"}
+              alignItems={"center"}
+              justifyContent={"space-around"}
+              my={2}
+              py={2}
+              mx={4}
+              borderRadius={"sm"}
+              borderColor={selectedPlan === "monthly" ? "#ffe040" : "#2B2B2B"}
+              borderWidth={2}
+              style={{
+                backgroundColor: "#1d1d1d",
+              }}
+            >
+              <Box p="2">
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "#ffe040",
+                    fontWeight: "bold",
+                    marginLeft: 10,
+                  }}
+                >
+                  MONTHLY PLAN
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: "#fff",
+                    marginLeft: 10,
+                  }}
+                >
+                  100 HOURS OF CHARGING PER MONTH
+                </Text>
+              </Box>
+              <Box p="2">
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "#ffe040",
+                    fontWeight: "bold",
+                    marginLeft: 10,
+                  }}
+                >
+                  $350/mo
+                </Text>
+              </Box>
+            </View>
+          </TouchableOpacity>
+          <Button
+            my={4}
+            rounded="sm"
+            bgColor={"#FFE040"}
+            _text={{
+              color: "#2B2B2B",
+              fontWeight: "bold",
+              fontSize: 14,
+            }}
+            w="90%"
+            mx="auto"
+          >
+            PURCHASE PLAN
+          </Button>
+        </SwipeablePanel>
         <Button
           my={4}
           rounded="sm"
