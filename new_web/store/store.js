@@ -3,7 +3,11 @@ import { persist } from "zustand/middleware";
 
 export const useStore = create(
   persist((set) => ({
-    user: {},
+    user: {
+      name: "",
+      email: "",
+      photoUrl: "",
+    },
 
     setUser: (user) => set((state) => ({ user })),
   }))
