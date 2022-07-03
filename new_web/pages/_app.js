@@ -11,11 +11,13 @@ import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const { getState } = useStore;
   const { user, setUser } = useStore();
   useEffect(() => {
     onAuthStateChanged(auth, (users) => {
       if (users) {
-        setUser(...user, users.uid);
+        console.log(users);
+        setUser(users.uid);
 
         if (["/", "/login", "/register"].includes(router.pathname)) {
           router.push("/user/dashboard");

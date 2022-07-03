@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useStore } from "/store/store";
-import { getAllSellers } from "../../services/auth.service";
+import { getSpecSellerDetail } from "../../services/auth.service";
 import Button from "/components/Button";
 import Layout from "/components/Layout";
 import { logout } from "../../services/auth.service";
@@ -14,7 +14,7 @@ import Image from "next/image";
 export default function UserDashboard() {
   const { user } = useStore();
   useEffect(() => {
-    getAllSellers();
+    getSpecSellerDetail();
   }, []);
   return (
     <Layout>

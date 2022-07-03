@@ -15,6 +15,7 @@ import {
   signOut,
   browserSessionPersistence,
   setPersistence,
+  getAuth,
   inMemoryPersistence,
   onAuthStateChanged,
 } from "firebase/auth";
@@ -105,8 +106,16 @@ export const logout = async () => {
 
 export const addSeller = async (sellerdata) => {
   try {
-    let { stationName, portType, address, numberofports, amenities } =
-      sellerdata;
+    let {
+      stationName,
+      portType,
+      address,
+      numberofports,
+      amenities,
+      longitude,
+      latitude,
+      type,
+    } = sellerdata;
     let authedUser = getState().user;
     if (!authedUser) throw "user not logged in";
     let uid = authedUser.uid;
@@ -119,6 +128,7 @@ export const addSeller = async (sellerdata) => {
       longitude: longitude,
       latitude: latitude,
       uid: uid,
+      type,
     });
     let upUser = await updateDoc(doc(db, "users", uid), {
       isSeller: true,
@@ -173,11 +183,9 @@ export const sellerAddProfileImage = async (file) => {
 
 export const getSpecSellerDetail = async (sellerData) => {
   try {
-    let authedUser = getState().user;
-    if (!authedUser) throw "user not logged in";
-    let uid = authedUser.uid;
+    console.log(auth.currentUser.uid);
     let sellerData = await getDoc(doc(db, "sellers", sellerData.sid));
-    return { message: "Sellers found", sellerData: sellerData };
+    return { message: "Sellers found", sellerData: sellerData.data() };
   } catch (err) {
     throw err;
   }
@@ -231,8 +239,16 @@ export const getAllSellers = async () => {
     let authedUser = getState().user;
     if (!authedUser) throw "user not logged in";
     let uid = authedUser.uid;
-    let allSellers = await getDoc(doc(db, "sellers"));
-    return { message: "all sellers found", allSellers: allSellers };
+    let allSellers = await getDocs(collection(db, "sellers"));
+    let sellerDetails = [];
+    allSellers.forEach((doc) => {
+      sellerDetails.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    console.log(sellerDetails);
+    return { message: "all sellers found", sellerData: sellerDetails };
   } catch (err) {
     throw err;
   }
