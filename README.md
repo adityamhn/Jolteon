@@ -4,11 +4,13 @@
   <img src="./imgs/jolteon.png" alt="Jolteon"/>
 </p>
 
-#### We're building **_Jolteon - YOUR SMART EV SOLUTION._**
+#### We're building **_Jolteon - WORLD'S FIRST EV CHARGING MARKETPLACE._**
 
 ## OUR IDEA
 
-We strive to make it simple to locate an `Electric Vehicle Charging Station` near you! We have created and monetized a marketplace for finding and even renting out EV Charging Stations (as we call them Jolt Stations).
+We have built a platform to connect EV drivers with indivisuals and companies hosting EV charging stations with a subscribtion based model. We strive to make it simple to locate an `Electric Vehicle Charging Station` near you! Drivers with charing stations at home can host their garages as charging spots for a passive revenue stream! (as we call them Jolt Stations).
+
+We aim to launch in India seeing the upcoming EV revolution and the opportunities provided by the govt and others to build, grow and monetize the EV market with the Jolteon platform.
 
 ## Sneak peek of our application
 
@@ -35,7 +37,7 @@ We strive to make it simple to locate an `Electric Vehicle Charging Station` nea
 
 ### BACKEND
 
-- Firebase
+- Firebase (Firestore and Authentication)
 
 ## OUR TEAM
 
@@ -46,7 +48,7 @@ We strive to make it simple to locate an `Electric Vehicle Charging Station` nea
 
 ## LINKS
 
-- [Download the app]()
+- [Download the apk]()
 - [Figma Design](https://www.figma.com/file/3vqut6JSJWry88cwuLUHPi/Jolteon?node-id=2%3A24)
 - [Product Video](https://youtu.be/h3LfmKAh3VY)
 <!-- - [Product Demo]() -->
