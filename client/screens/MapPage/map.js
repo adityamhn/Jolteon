@@ -299,7 +299,7 @@ export function Map() {
             justifyContent={"flex-start"}
             py={2}
           >
-            {openMarker.amenities.map((item, idx) => {
+            {openMarker?.amenities?.map((item, idx) => {
               let img;
               if (item === "cafe") {
                 img = (
