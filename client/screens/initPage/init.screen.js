@@ -13,7 +13,7 @@ const InitialScreen = ({ navigation }) => {
         source={map}
         resizeMode="cover"
         style={{
-          paddingHorizontal: 32,
+          paddingHorizontal: 50,
         }}
       >
         <Box
