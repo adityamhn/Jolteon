@@ -27,6 +27,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
     backgroundColor={"#565656"}
     borderRadius={10}
     alignItems="center"
+    flexDirection={"row"}
   >
     <Flex
       flexDirection={"row"}
@@ -98,9 +99,9 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
       }}
       my={2}
     >
-      {cost} estimated
+      {cost}
     </Text>
-    <Text
+    {/* <Text
       style={{
         fontSize: 14,
         color: "#fff",
@@ -109,7 +110,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
       my={2}
     >
       {status}
-    </Text>
+    </Text> */}
   </Flex>
 );
 
