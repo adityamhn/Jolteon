@@ -19,6 +19,8 @@ import {
   WelcomeText,
 } from "../LoginPage/login.styles";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ImageBackground } from "react-native";
+import map from "../../assets/map.png";
 
 
 export function Register({ navigation }) {
@@ -33,6 +35,10 @@ export function Register({ navigation }) {
       backgroundColor="#0d0d0d"
       style={{ paddingHorizontal: 32 }}
     >
+       <ImageBackground
+        source={map}
+        resizeMode="cover"
+      >
       <ScrollView>
         <Image
           source={logo}
@@ -143,6 +149,7 @@ export function Register({ navigation }) {
           </Box>
         </VStack>
       </ScrollView>
+      </ImageBackground>
     </Container>
   );
 }

@@ -14,6 +14,8 @@ import {
 } from "native-base";
 import { WelcomeText, InputField, DashboardButton } from "./login.styles";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ImageBackground } from "react-native";
+import map from "../../assets/map.png";
 
 export function Login({ navigation }) {
   const [formData, setData] = useState({});
@@ -22,6 +24,10 @@ export function Login({ navigation }) {
   const toast = useToast();
   return (
     <Container flex="1" backgroundColor="#0d0d0d">
+      <ImageBackground
+        source={map}
+        resizeMode="cover"
+      >
       <ScrollView style={{ paddingHorizontal: 32 }}>
         <Image
           source={logo}
@@ -122,6 +128,7 @@ export function Login({ navigation }) {
           </Box>
         </VStack>
       </ScrollView>
+      </ImageBackground>
     </Container>
   );
 }

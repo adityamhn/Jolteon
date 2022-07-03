@@ -86,6 +86,8 @@ export const AppNavigator = () => (
         paddingTop: 10,
         borderColor: "transparent",
         shadowColor: "transparent",
+      showLabel: false,
+
       },
     })}
   >

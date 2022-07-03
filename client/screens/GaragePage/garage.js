@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Button, Image, Flex, View } from "native-base";
+import { Box, Text, Button, Image, Flex, View, VStack } from "native-base";
 import {
   ActivityIndicator,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import { getGarageDetails } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
 import CardDetails from "../CarDetails/CarDetails";
+import map from "../../assets/map.png";
 
 const InfoBox = ({ image, data, dataName }) => (
   <View
@@ -88,6 +90,12 @@ export function Garage({ navigation }) {
         backgroundColor={"#2B2B2B"}
         alignItems="center"
       >
+        <ImageBackground
+        source={map}
+        resizeMode="cover"
+      >
+        <VStack alignItems="center" h="100%">
+
         <Image
           source={{
             uri: "https://www.pngmart.com/files/22/Tesla-PNG-Transparent.png",
@@ -103,6 +111,7 @@ export function Garage({ navigation }) {
 
             marginTop: 30,
           }}
+          bold
         >
           {garageData.brand} {garageData.model}
         </Text>
@@ -305,9 +314,9 @@ export function Garage({ navigation }) {
         <Button
           my={4}
           rounded="sm"
-          bgColor={"#FFE040"}
+          bgColor={"#565656"}
           _text={{
-            color: "#2B2B2B",
+            color: "#fff",
 
             fontSize: 14,
           }}
@@ -316,6 +325,9 @@ export function Garage({ navigation }) {
         >
           ENTER CAR DETAILS
         </Button>
+        </VStack>
+
+        </ImageBackground>
       </Box>
     );
   } else if (!garageData?.model) {
