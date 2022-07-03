@@ -18,12 +18,8 @@ export function Login({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   return (
-    <Container
-      flex="1"
-      backgroundColor="#0d0d0d"
-      style={{ paddingHorizontal: 32 }}
-    >
-      <ScrollView>
+    <Container flex="1" backgroundColor="#0d0d0d">
+      <ScrollView style={{ paddingHorizontal: 32 }}>
         <Image
           source={logo}
           style={{ width: 130, height: 40, marginLeft: -18 }}
