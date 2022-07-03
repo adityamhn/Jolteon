@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-web-maps";
 import mapStyle from "./mapStyle.json";
 import * as Location from "expo-location";
 import { AddIcon, Box, Button, Fab, Flex, Icon } from "native-base";

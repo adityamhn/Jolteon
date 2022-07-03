@@ -86,12 +86,11 @@ export const AppNavigator = () => (
         paddingTop: 10,
         borderColor: "transparent",
         shadowColor: "transparent",
-      showLabel: false,
-
+        showLabel: false,
       },
     })}
   >
-    <Tabs.Screen name="Map" component={Map} />
+    {/* <Tabs.Screen name="Map" component={Map} /> */}
     <Tabs.Screen name="Garage" component={GarageNavigator} />
     <Tabs.Screen name="Bookings" component={Booking} />
     <Tabs.Screen name="Profile" component={ProfileNavigator} />
