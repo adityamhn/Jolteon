@@ -5,6 +5,7 @@ import {
     Image,
     ScrollView,
     Text,
+    useToast,
     VStack,
 } from "native-base";
 import React, { useState } from "react";
@@ -18,6 +19,8 @@ import {
 
 const VendorInfoScreen = ({ navigation }) => {
     const [formData, setFormData] = useState(null);
+  const toast = useToast();
+
     return (
         <Container
             flex="1"
@@ -25,7 +28,7 @@ const VendorInfoScreen = ({ navigation }) => {
             style={{ paddingHorizontal: 32 }}
         >
             <ScrollView>
-                <Heading style={{ color: "#e5e5e5" }}>Your Details</Heading>
+                <Heading style={{ color: "#e5e5e5" }}>Create your own Station</Heading>
                 <VStack space={3} mt="10" alignItems={"center"}>
                     <Image
                         source={{

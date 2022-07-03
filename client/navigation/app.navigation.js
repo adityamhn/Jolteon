@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Map from "../screens/MapPage/map";
-import Profile from "../screens/ProfilePage/profile";
 import { Image, View } from "native-base";
 import { Booking } from "../screens/BookingPage/booking";
 import { GarageNavigator } from "./garage.navigation";
+import { ProfileNavigator } from "./profile.navigation";
 
 const Tabs = createBottomTabNavigator();
 
@@ -92,6 +92,6 @@ export const AppNavigator = () => (
     <Tabs.Screen name="Map" component={Map} />
     <Tabs.Screen name="Garage" component={GarageNavigator} />
     <Tabs.Screen name="Bookings" component={Booking} />
-    <Tabs.Screen name="Profile" component={Profile} />
+    <Tabs.Screen name="Profile" component={ProfileNavigator} />
   </Tabs.Navigator>
 );

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   Box,
+  Button,
   FormControl,
   Heading,
   Image,
@@ -12,7 +13,7 @@ import { logout } from "../../services/auth.service";
 import { Container } from "../initPage/init.styles";
 import { DashboardButton, InputField } from "../LoginPage/login.styles";
 
-export function Profile() {
+export function Profile({navigation}) {
   const signUserOut = async () => {
     try {
       const res = await logout();
@@ -40,7 +41,8 @@ export function Profile() {
 
 
                 </VStack>
-                    <DashboardButton mt="2" style={{ width: "100%",marginTop:92}} onPress={signUserOut}>
+                    <DashboardButton mt="2" style={{width:"100%",marginTop:92, backgroundColor:"#565656"}} onPress={() => navigation.navigate("VendorInfo")}>Become a Vendor</DashboardButton>
+                    <DashboardButton mt="2" style={{ width: "100%"}} onPress={signUserOut}>
                         <Text style={{ color: "#000" }} bold>
                             LOGOUT
                         </Text>
