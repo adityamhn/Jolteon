@@ -254,11 +254,12 @@ export function Booking() {
     >
       <Text
         style={{
-          fontSize: 36,
+          fontSize: 24,
           color: "#fff",
           fontFamily: "MontserratMedium",
           marginTop: 25,
           padding: 25,
+          textAlign: "center",
         }}
       >
         Current Bookings
