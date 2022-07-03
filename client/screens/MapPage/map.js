@@ -132,11 +132,6 @@ export function Map() {
               style={{
                 width: 90,
                 height: 90,
-                shadowColor: "black",
-                shadowOpacity: 0.5,
-                shadowOffset: { width: 0, height: 4 },
-                shadowRadius: 15,
-                elevation: 4,
                 backgroundColor: "black",
               }}
               resizeMode={"cover"}

@@ -315,7 +315,7 @@ export function Booking() {
                 fontFamily: "MontserratMedium",
               }}
             >
-              Your Address
+              Jolt Charge Station
             </Text>
             <Text
               style={{
@@ -351,7 +351,7 @@ export function Booking() {
 
         {bookings &&
           sellerData &&
-          bookings[0].map((booking, index) => (
+          bookings[0]?.map((booking, index) => (
             <React.Fragment key={index + 1}>
               {console.log("helloin", booking?.fromtime.toDate())}
               <BookingCard

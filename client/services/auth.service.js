@@ -32,7 +32,41 @@ export const register = async (regdata) => {
     let userData = await setDoc(doc(db, "users", user.user.uid), {
       name: name,
       email: email,
+      isBuyer: true,
+      isSeller: true,
     });
+    let buyerData = await setDoc(
+      doc(db, "buyers", Math.floor(Math.random() * 16777215).toString(32)),
+      {
+        brand: "Tesla",
+        model: "X",
+        color: "White",
+        batteryType: "Cable C",
+        isCharging: false,
+        uid: user.user.uid,
+        health: "Good",
+        voltage: 325,
+        etc: 3,
+        subscription: "monthly",
+        charge: 0.7,
+      }
+    );
+    let sellerData = await setDoc(
+      doc(db, "sellers", Math.floor(Math.random() * 16777215).toString(32)),
+      {
+        stationName: "Jolt Super",
+        portType: "Cable C",
+        address: "4th cross, 4th block, Koramangla",
+        numberofports: 5,
+        uid: user.user.uid,
+        type: "station",
+        fee: 100,
+        amenities: ["wc", "rooms", "cafe"],
+        power: "20",
+        latitude: 0,
+        longitude: 0,
+      }
+    );
     return { message: "Registered", user: user };
   } catch (err) {
     throw err;
@@ -202,6 +236,40 @@ export const allBookingDetails = async () => {
       message: "Booking Details Found",
       bookingDetails: bookingDetails,
       sellerData,
+    };
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getSelfSellerDetails = async () => {
+  try {
+    let uid = auth.currentUser.uid;
+    let q = query(collection(db, "sellers"), where("uid", "==", uid));
+    let getSellerData = await getDocs(q);
+    let sellerData = [];
+    getSellerData.forEach((doc) => {
+      sellerData.push({
+        stationName: doc.data().stationName,
+        email: auth.currentUser.email,
+        address: doc.data().address,
+        portType: doc.data().portType,
+        numberofports: doc.data().numberofports,
+      });
+    });
+    if (sellerData.length == 0) {
+      sellerData.push({
+        stationName: "",
+        email: "",
+        address: "",
+        portType: "",
+        numberofports: "",
+      });
+    }
+    console.log("hello babe", sellerData);
+    return {
+      message: "Booking Details Found",
+      sellerData: sellerData[0],
     };
   } catch (err) {
     throw err;
