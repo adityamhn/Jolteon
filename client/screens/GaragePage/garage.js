@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Button, Image, Flex, View } from "native-base";
+import { Box, Text, Button, Image, Flex, View, useToast } from "native-base";
 import {
   ActivityIndicator,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { getGarageDetails } from "../../services/auth.service";
+import { getGarageDetails, buyPlan } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
 import CardDetails from "../CarDetails/CarDetails";
 
@@ -59,7 +59,7 @@ export function Garage({ navigation }) {
   const [isPanelActive, setIsPanelActive] = useState(false);
 
   const [selectedPlan, setSelectedPlan] = useState("annually");
-
+  const toast = useToast();
   const panelProps = {
     fullWidth: true,
     openSmall: true,
@@ -75,9 +75,33 @@ export function Garage({ navigation }) {
   useEffect(() => {
     (async () => {
       let data = await getGarageDetails();
+      console.log(data.garageDetails);
       setGarageData(data.garageDetails);
+      setSelectedPlan(data.garageDetails.subscription);
     })();
   }, []);
+
+  const purchasePlan = async () => {
+    try {
+      let buyerdata = {
+        subscription: selectedPlan,
+      };
+      let plans = await buyPlan(buyerdata);
+      console.log(plans);
+      toast.show({
+        render: () => {
+          return (
+            <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
+              Plan booked successfully!
+            </Box>
+          );
+        },
+      });
+      setIsPanelActive(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (garageData) {
     return (
@@ -298,6 +322,7 @@ export function Garage({ navigation }) {
             }}
             w="90%"
             mx="auto"
+            onPress={purchasePlan}
           >
             PURCHASE PLAN
           </Button>
