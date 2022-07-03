@@ -8,15 +8,14 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 const InitialScreen = ({ navigation }) => {
   return (
-    <Container
-      flex="1"
-      backgroundColor="#0d0d0d"
-      alignItems="center"
-      style={{
-        width: "100%",
-      }}
-    >
-      <ImageBackground source={map} resizeMode="contain">
+    <Container flex="1" backgroundColor="#0d0d0d" alignItems="center">
+      <ImageBackground
+        source={map}
+        resizeMode="cover"
+        style={{
+          paddingHorizontal: 32,
+        }}
+      >
         <Box
           flex="1"
           alignItems="center"
