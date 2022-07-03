@@ -39,7 +39,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
           style={{
             fontSize: 16,
             color: "#fff",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -49,7 +49,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
           style={{
             fontSize: 8,
             color: "#fff",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -72,7 +72,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
           style={{
             fontSize: 16,
             color: "#fff",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -82,7 +82,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
           style={{
             fontSize: 8,
             color: "#fff",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -94,7 +94,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
       style={{
         fontSize: 14,
         color: "#fff",
-        fontWeight: "bold",
+        fontFamily: "MontserratMedium",
       }}
       my={2}
     >
@@ -104,7 +104,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
       style={{
         fontSize: 14,
         color: "#fff",
-        fontWeight: "bold",
+        fontFamily: "MontserratMedium",
       }}
       my={2}
     >
@@ -126,7 +126,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
       style={{
         fontSize: 14,
         color: "#0d0d0d",
-        fontWeight: "bold",
+        fontFamily: "MontserratBold",
       }}
       my={2}
       ml={4}
@@ -144,7 +144,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 20,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -154,7 +154,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 8,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratBold",
             marginLeft: 10,
           }}
         >
@@ -166,7 +166,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 20,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -176,7 +176,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 8,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratBold",
             marginLeft: 10,
           }}
         >
@@ -188,7 +188,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 20,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -198,7 +198,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 8,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratBold",
             marginLeft: 10,
           }}
         >
@@ -210,7 +210,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 20,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             marginLeft: 10,
           }}
         >
@@ -220,7 +220,7 @@ const TotalEarningCard = ({ today, yesterday, week, month }) => (
           style={{
             fontSize: 8,
             color: "#0d0d0d",
-            fontWeight: "bold",
+            fontFamily: "MontserratBold",
             marginLeft: 10,
           }}
         >
@@ -253,16 +253,16 @@ export function Booking() {
     >
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 36,
           color: "#fff",
-          fontWeight: "bold",
-          marginTop: 40,
+          fontFamily: "MontserratMedium",
+          marginTop: 25,
+          padding: 25,
         }}
       >
         Current Bookings
       </Text>
       <ScrollView
-        mt={4}
         pb={10}
         style={{
           width: "100%",
@@ -280,33 +280,34 @@ export function Booking() {
             source={{
               uri: "https://images.unsplash.com/photo-1605282003441-a966bb348137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGV0cm9sJTIwc3RhdGlvbnxlbnwwfHwwfHw%3D&w=1000&q=80",
             }}
-            style={{ width: 120, height: 120 }}
+            style={{ width: 90, height: 90 }}
             resizeMode={"cover"}
             borderRadius={10}
           />
-          <View width={"1/2"} marginLeft={4}>
+          <View marginLeft={4}>
             <Text
               style={{
-                fontSize: 10,
+                fontSize: 16,
                 color: "#fff",
-                fontWeight: "bold",
+                fontFamily: "MontserratMedium",
               }}
             >
               Your Address
             </Text>
             <Text
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 color: "#fff",
+                fontFamily: "MontserratLight",
               }}
             >
-              4/1, 2nd Floor, 4th Cross, 4th block, Koramangala, Bengaluru
+              4th Cross, 4th block, Koramangala
             </Text>
             <Text
               style={{
-                fontSize: 10,
+                fontSize: 12,
+                fontFamily: "MontserratLight",
                 color: "#FFE040",
-                fontWeight: "bold",
               }}
             >
               4 Ports available{" "}
