@@ -18,7 +18,7 @@ const InfoBox = ({ image, data, dataName }) => (
     rounded="sm"
     _text={{
       color: "warmGray.50",
-      fontWeight: "medium",
+      fontFamily: "MontserratMedium",
     }}
   >
     <Flex flexDirection={"row"} alignItems={"center"}>
@@ -34,7 +34,7 @@ const InfoBox = ({ image, data, dataName }) => (
         <Text
           style={{
             fontSize: 12,
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             color: "#FFE040",
           }}
         >
@@ -43,7 +43,7 @@ const InfoBox = ({ image, data, dataName }) => (
         <Text
           style={{
             fontSize: 10,
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
             color: "#FFF",
           }}
         >
@@ -99,7 +99,8 @@ export function Garage({ navigation }) {
           style={{
             fontSize: 20,
             color: "#fff",
-            fontWeight: "bold",
+            fontFamily: "MontserratMedium",
+
             marginTop: 30,
           }}
         >
@@ -146,7 +147,7 @@ export function Garage({ navigation }) {
           bgColor={"#FFE040"}
           _text={{
             color: "#2B2B2B",
-            fontWeight: "bold",
+            fontFamily: "MontserratBold",
             fontSize: 14,
           }}
           onPress={() => setIsPanelActive(true)}
@@ -167,7 +168,7 @@ export function Garage({ navigation }) {
                 style={{
                   fontSize: 20,
                   color: "#fff",
-                  fontWeight: "bold",
+                  fontFamily: "MontserratBold",
                 }}
               >
                 EV Charging Plans
@@ -197,7 +198,8 @@ export function Garage({ navigation }) {
                   style={{
                     fontSize: 12,
                     color: "#ffe040",
-                    fontWeight: "bold",
+                    fontFamily: "MontserratMedium",
+
                     marginLeft: 10,
                   }}
                 >
@@ -218,7 +220,8 @@ export function Garage({ navigation }) {
                   style={{
                     fontSize: 12,
                     color: "#ffe040",
-                    fontWeight: "bold",
+                    fontFamily: "MontserratMedium",
+
                     marginLeft: 10,
                   }}
                 >
@@ -251,7 +254,8 @@ export function Garage({ navigation }) {
                   style={{
                     fontSize: 12,
                     color: "#ffe040",
-                    fontWeight: "bold",
+                    fontFamily: "MontserratMedium",
+
                     marginLeft: 10,
                   }}
                 >
@@ -272,7 +276,8 @@ export function Garage({ navigation }) {
                   style={{
                     fontSize: 12,
                     color: "#ffe040",
-                    fontWeight: "bold",
+                    fontFamily: "MontserratMedium",
+
                     marginLeft: 10,
                   }}
                 >
@@ -287,7 +292,8 @@ export function Garage({ navigation }) {
             bgColor={"#FFE040"}
             _text={{
               color: "#2B2B2B",
-              fontWeight: "bold",
+              fontFamily: "MontserratMedium",
+
               fontSize: 14,
             }}
             w="90%"
@@ -302,13 +308,13 @@ export function Garage({ navigation }) {
           bgColor={"#FFE040"}
           _text={{
             color: "#2B2B2B",
-            fontWeight: "bold",
+
             fontSize: 14,
           }}
           w="90%"
-          onPress={() => navigation.navigate("VendorInfo")}
+          onPress={() => navigation.navigate("CarDetails")}
         >
-          ENTER VENDOR DETAILS
+          ENTER CAR DETAILS
         </Button>
       </Box>
     );

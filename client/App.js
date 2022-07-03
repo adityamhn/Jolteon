@@ -32,6 +32,10 @@ const theme = extendTheme({
         normal: "MontserratMedium",
         italic: "MontserratMediumItalic",
       },
+      700: {
+        normal: "MontserratBold",
+        italic: "MontserratBoldItalic",
+      },
     },
   },
 

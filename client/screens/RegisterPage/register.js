@@ -94,7 +94,6 @@ export function Register({ navigation }) {
                           );
                         },
                       });
-                      setIsLoading(false);
                     })
                     .catch((err) => {
                       toast.show({

@@ -13,6 +13,6 @@ export const GarageNavigator = () => (
   >
     <Stack.Screen name="GaragePage" component={Garage} />
     <Stack.Screen name="VendorInfo" component={VendorInfoScreen} />
-    <Stack.Screen name="CarInfo" component={CardDetails} />
+    <Stack.Screen name="CarDetails" component={CardDetails} />
   </Stack.Navigator>
 );

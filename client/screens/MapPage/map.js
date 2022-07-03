@@ -32,6 +32,9 @@ export function Map() {
       backgroundColor: "#323232",
     },
     closeOnTouchOutside: true,
+    barStyle: {
+      width: "40%",
+    },
   };
   const [isPanelActive, setIsPanelActive] = useState(false);
   const [openMarker, setOpenMarker] = useState(null);
