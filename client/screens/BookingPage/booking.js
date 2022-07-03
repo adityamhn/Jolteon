@@ -22,25 +22,27 @@ import { allBookingDetails } from "../../services/auth.service";
 
 const BookingCard = ({ arrival, departure, cost, status }) => (
   <Flex
-    w="90%"
+    w="80%"
     mx={"auto"}
     backgroundColor={"#565656"}
     borderRadius={10}
     alignItems="center"
     flexDirection={"row"}
+    justifyContent={"space-evenly"}
   >
     <Flex
       flexDirection={"row"}
       alignItems={"center"}
       justifyContent={"space-around"}
       py={2}
+      flex={"2.5"}
     >
       <Box p="2">
         <Text
           style={{
             fontSize: 16,
             color: "#fff",
-            fontFamily: "MontserratMedium",
+            fontFamily: "MontserratBold",
             marginLeft: 10,
           }}
         >
@@ -60,9 +62,11 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
       <Box p="2">
         <Text
           style={{
-            fontSize: 12,
+            fontSize: 16,
             color: "#ffe040",
             marginLeft: 10,
+
+            fontFamily: "MontserratBold",
           }}
         >
           1 hr
@@ -73,7 +77,7 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
           style={{
             fontSize: 16,
             color: "#fff",
-            fontFamily: "MontserratMedium",
+            fontFamily: "MontserratBold",
             marginLeft: 10,
           }}
         >
@@ -91,16 +95,33 @@ const BookingCard = ({ arrival, departure, cost, status }) => (
         </Text>
       </Box>
     </Flex>
-    <Text
-      style={{
-        fontSize: 14,
-        color: "#fff",
-        fontFamily: "MontserratMedium",
-      }}
-      my={2}
-    >
-      {cost}
-    </Text>
+
+    <View alignItems={"center"} justifyContent={"center"} flex={"1"}>
+      <Text
+        style={{
+          fontSize: 16,
+          color: "#fff",
+          fontFamily: "MontserratBold",
+
+          textAlign: "center",
+        }}
+      >
+        {cost}
+      </Text>
+      <Text
+        style={{
+          fontSize: 8,
+          color: "#fff",
+
+          fontFamily: "MontserratLight",
+
+          textAlign: "center",
+        }}
+      >
+        {" "}
+        Est. Earnings
+      </Text>
+    </View>
     {/* <Text
       style={{
         fontSize: 14,
@@ -340,7 +361,7 @@ export function Booking() {
                 departure={new Date(
                   booking?.totime.toDate()
                 ).toLocaleTimeString()}
-                cost={"$" + sellerData.fee + "/hour"}
+                cost={"$" + sellerData.fee}
                 status={booking.status}
               />
               <Divider
