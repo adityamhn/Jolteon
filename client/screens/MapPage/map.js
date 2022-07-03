@@ -13,9 +13,10 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import mapStyle from "./mapStyle.json";
 import * as Location from "expo-location";
-import { AddIcon, Box, Button, Fab, Flex, Icon } from "native-base";
+import { AddIcon, Box, Button, Fab, Flex, Icon, useToast } from "native-base";
 import { book, getAllSeller } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
+import moment from "moment";
 
 export function Map() {
   const [location, setLocation] = useState(null);
@@ -40,6 +41,7 @@ export function Map() {
   const [openMarker, setOpenMarker] = useState(null);
   const [isADatePickerVisible, setADatePickerVisibility] = useState(false);
   const [isDDatePickerVisible, setDDatePickerVisibility] = useState(false);
+  const toast = useToast();
 
   const [arrivalDate, setArrivalDate] = useState(null);
   const [departureDate, setDepartureDate] = useState(null);
@@ -81,7 +83,21 @@ export function Map() {
 
     try {
       let retdata = await book(bookingData);
-
+      toast.show({
+        render: () => {
+          return (
+            <Box
+              bg="emerald.500"
+              px="2"
+              py="1"
+              rounded="sm"
+              mb={5}
+            >
+              Your charge is booked!
+            </Box>
+          );
+        },
+      });
       console.log(retdata);
     } catch (err) {
       console.log("err", err);
@@ -274,7 +290,7 @@ export function Map() {
               fontFamily: "MontserratMedium",
             }}
           >
-            Additional Ammenities available here:
+            Additional Amenities available here:
           </Text>
 
           <Flex
@@ -283,7 +299,7 @@ export function Map() {
             justifyContent={"flex-start"}
             py={2}
           >
-            {openMarker.ameneties.map((item, idx) => {
+            {openMarker.amenities.map((item, idx) => {
               let img;
               if (item === "cafe") {
                 img = (
@@ -388,7 +404,7 @@ export function Map() {
                 }}
                 onPress={showDatePicker}
               >
-                Pick Arrival Time
+               {arrivalDate ?  moment(arrivalDate).format('LT') : "Pick Arrival Time"} 
               </Button>
               <DateTimePickerModal
                 isVisible={isADatePickerVisible}
@@ -447,7 +463,8 @@ export function Map() {
                   setDDatePickerVisibility(true);
                 }}
               >
-                Pick Departure Time
+                {departureDate ?  moment(departureDate).format('LT') : "Pick Departure Time"} 
+                
               </Button>
               <DateTimePickerModal
                 isVisible={isDDatePickerVisible}
