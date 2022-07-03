@@ -90,7 +90,7 @@ export const AppNavigator = () => (
       },
     })}
   >
-    {/* <Tabs.Screen name="Map" component={Map} /> */}
+    <Tabs.Screen name="Map" component={Map} />
     <Tabs.Screen name="Garage" component={GarageNavigator} />
     <Tabs.Screen name="Bookings" component={Booking} />
     <Tabs.Screen name="Profile" component={ProfileNavigator} />

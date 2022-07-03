@@ -7,15 +7,127 @@ import {
   Image,
   ActivityIndicator,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-web-maps";
-import mapStyle from "./mapStyle.json";
+// import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-web-maps";
+// import mapStyle from "./mapStyle.json";
 import * as Location from "expo-location";
-import { AddIcon, Box, Button, Fab, Flex, Icon } from "native-base";
+import {
+  AddIcon,
+  Box,
+  Button,
+  Divider,
+  Fab,
+  Flex,
+  Icon,
+  ScrollView,
+} from "native-base";
 import { book, getAllSeller } from "../../services/auth.service";
 import { SwipeablePanel } from "rn-swipeable-panel";
+
+const BookingCard = ({ stationName, ports, fee, address }) => (
+  <Flex
+    w="80%"
+    mx={"auto"}
+    backgroundColor={"#565656"}
+    borderRadius={10}
+    alignItems="center"
+    flexDirection={"row"}
+    justifyContent={"space-evenly"}
+  >
+    <Flex
+      flexDirection={"row"}
+      alignItems={"center"}
+      justifyContent={"space-around"}
+      py={2}
+      flex={"2.5"}
+    >
+      <Box p="2" w={"150"}>
+        <Text
+          style={{
+            fontSize: 16,
+            color: "#fff",
+            fontFamily: "MontserratBold",
+            marginLeft: 10,
+          }}
+        >
+          {stationName}
+        </Text>
+      </Box>
+      <Box p="2" w={"200"}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: "#fff",
+            fontFamily: "MontserratMedium",
+            marginLeft: 10,
+          }}
+        >
+          {address}
+        </Text>
+      </Box>
+      <Box p="2">
+        <Text
+          style={{
+            fontSize: 16,
+            color: "#ffe040",
+            marginLeft: 10,
+
+            fontFamily: "MontserratBold",
+          }}
+        >
+          {ports} ports
+        </Text>
+      </Box>
+    </Flex>
+
+    <View
+      alignItems={"center"}
+      justifyContent={"center"}
+      flex={"2"}
+      style={{
+        marginRight: 20,
+      }}
+    >
+      <Text
+        style={{
+          fontSize: 16,
+          color: "#fff",
+          fontFamily: "MontserratBold",
+
+          textAlign: "center",
+        }}
+      >
+        {fee}
+      </Text>
+      <Text
+        style={{
+          fontSize: 8,
+          color: "#fff",
+
+          fontFamily: "MontserratLight",
+
+          textAlign: "center",
+        }}
+      >
+        {" "}
+        Est. Price
+      </Text>
+    </View>
+    {/* <Text
+      style={{
+        fontSize: 14,
+        color: "#fff",
+        fontFamily: "MontserratMedium",
+      }}
+      my={2}
+    >
+      {status}
+    </Text> */}
+  </Flex>
+);
 
 export function Map() {
   const [location, setLocation] = useState(null);
@@ -283,7 +395,7 @@ export function Map() {
             justifyContent={"flex-start"}
             py={2}
           >
-            {openMarker.ameneties.map((item, idx) => {
+            {openMarker?.amenities?.map((item, idx) => {
               let img;
               if (item === "cafe") {
                 img = (
@@ -502,99 +614,145 @@ export function Map() {
               </Text>
             </View>
           </Button>
-
-          {/* <Button
-            mx={"auto"}
-            rounded="sm"
-            bgColor={"#565656"}
-            _text={{
-              color: "#ffffff",
-              fontWeight: "bold",
-              fontSize: 12,
-            }}
-            w="80%"
-          >
-            SHOW DIRECTIONS
-          </Button> */}
         </SwipeablePanel>
       )}
       {location && location.coords && allmarkers != null ? (
         <>
-          {/* <View
-            style={{ position: "absolute", top: 40, width: "100%", zIndex: 10 }}
+          <Box
+            safeArea
+            w="100%"
+            h="100%"
+            backgroundColor={"#2B2B2B"}
+            alignItems="center"
           >
-            <TextInput
+            <Text
               style={{
-                borderRadius: 4,
-                margin: 10,
+                fontSize: 24,
                 color: "#fff",
-                borderColor: "#666",
-                backgroundColor: "#565656",
-                borderWidth: 1,
-                height: 45,
-                paddingHorizontal: 10,
-                fontSize: 18,
+                fontFamily: "MontserratMedium",
+                marginTop: 25,
+                padding: 25,
+                textAlign: "center",
               }}
-              placeholder={"Search"}
-              placeholderTextColor={"#FFFFFF50"}
-            />
-          </View> */}
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            showsUserLocation={true}
-            showsMyLocationButton={true}
-            customMapStyle={mapStyle}
-            initialRegion={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-            style={styles.map}
-          >
-            {/* Own Marker */}
-            <Marker
-              coordinate={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
+            >
+              Jolt Stations
+            </Text>
+            <ScrollView
+              pb={10}
+              style={{
+                width: "100%",
+                height: "100%",
               }}
-              title={"Your location"}
-            ></Marker>
-            {/* Other people station markers */}
-            {allmarkers.map((marker, idx) => {
-              return (
-                <Marker
-                  coordinate={{
-                    latitude: marker.latitude,
-                    longitude: marker.longitude,
+            >
+              {/* <Flex
+                mt={8}
+                alignItems="center"
+                justifyContent={"center"}
+                flexDirection={"row"}
+              >
+                <Image
+                  alt={"addres1"}
+                  source={{
+                    uri: "https://images.unsplash.com/photo-1605282003441-a966bb348137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGV0cm9sJTIwc3RhdGlvbnxlbnwwfHwwfHw%3D&w=1000&q=80",
                   }}
-                  key={idx}
-                  title={"Charging Station"}
+                  style={{ width: 90, height: 90 }}
+                  resizeMode={"cover"}
+                  borderRadius={10}
+                />
+                <View marginLeft={12}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: "#fff",
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    Jolt Charge Station
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: "#fff",
+                      fontFamily: "MontserratLight",
+                    }}
+                  >
+                    4th Cross, 4th block, Koramangala
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontFamily: "MontserratLight",
+                      color: "#FFE040",
+                    }}
+                  >
+                    4 Ports available{" "}
+                  </Text>
+                </View>
+              </Flex> */}
+
+              <Divider
+                style={{
+                  backgroundColor: "#E5E5E588",
+                  width: "80%",
+                  height: 1,
+                  marginTop: 10,
+                  marginBottom: 10,
+                }}
+                mx={"auto"}
+              />
+
+              {allmarkers.map((marker, index) => (
+                <TouchableOpacity
                   onPress={() => {
                     openPanel(marker);
                   }}
+                  key={index + 1}
                 >
+                  {console.log(marker)}
+                  {marker && (
+                    <>
+                      <BookingCard
+                        stationName={marker.stationName}
+                        fee={marker.fee}
+                        ports={marker.numberofports}
+                        address={marker.address}
+                      />
+                      <Divider
+                        style={{
+                          backgroundColor: "#E5E5E588",
+                          width: "80%",
+                          height: 1,
+                          marginTop: 10,
+                          marginBottom: 10,
+                        }}
+                        mx={"auto"}
+                      />
+                    </>
+                  )}
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </Box>
+          {/* {allmarkers.map((marker, idx) => {
+            return (
+              <TouchableOpacity
+                key={idx}
+                onPress={() => {
+                  openPanel(marker);
+                }}
+              >
+                <View>
                   <Image
                     source={require("./yellowmarker.png")}
                     style={{ height: 35, width: 35 }}
                   />
-                </Marker>
-              );
-            })}
-            {/* Swap station markers */}
-            <Marker
-              coordinate={{
-                latitude: location.coords.latitude - 0.001,
-                longitude: location.coords.longitude - 0.001,
-              }}
-              title={"Swap Station"}
-            >
-              <Image
-                source={require("./greenmarker.png")}
-                style={{ height: 35, width: 35 }}
-              />
-            </Marker>
-          </MapView>
+                  <Text style={{ fontSize: 12, color: "#fff" }}>
+                    {marker.latitude} , {marker.longitude}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })} */}
         </>
       ) : (
         <ActivityIndicator size="large" color="#FFE040" />
