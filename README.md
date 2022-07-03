@@ -48,7 +48,9 @@ We aim to launch in India seeing the upcoming EV revolution and the opportunitie
 
 ## LINKS
 
-- [Download the apk]()
+- [Download the apk](https://drive.google.com/file/d/1D6h3242axR-BhNFLMGX0WjdbgKz9R740/view?usp=drive_open)
+- [Product Demo Video](https://www.youtube.com/watch?v=EleK52dEDU8)
+- [Web application Link](https://jolteon-silk.vercel.app/)
 - [Figma Design](https://www.figma.com/file/3vqut6JSJWry88cwuLUHPi/Jolteon?node-id=2%3A24)
-- [Product Video](https://youtu.be/h3LfmKAh3VY)
+- [Product Teaser Video](https://youtu.be/h3LfmKAh3VY)
 <!-- - [Product Demo]() -->
