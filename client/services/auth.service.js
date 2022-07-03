@@ -89,13 +89,7 @@ export const getSpecSeller = async (sellerData) => {
 
 export const addSeller = async (sellerdata) => {
   try {
-    let {
-      stationName,
-      portType,
-      address,
-      numberofports,
-      type,
-    } = sellerdata;
+    let { stationName, portType, address, numberofports, type } = sellerdata;
     let uid = auth.currentUser.uid;
     let sellerData = await setDoc(doc(db, "sellers"), {
       stationName: stationName,
@@ -140,6 +134,8 @@ export const buyPlan = async (buyerdata) => {
     getBuyerData.forEach((doc) => {
       docId = doc.id;
     });
+    console.log(docId);
+    console.log("hello", buyerdata.subscription);
     let upBuyer = await updateDoc(doc(db, "buyers", docId), {
       subscription: buyerdata.subscription,
     });
