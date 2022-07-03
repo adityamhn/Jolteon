@@ -10,6 +10,7 @@ import {
   VStack,
   useToast,
   ScrollView,
+  Icon
 } from "native-base";
 import { register } from "../../services/auth.service";
 import {
@@ -17,10 +18,14 @@ import {
   InputField,
   WelcomeText,
 } from "../LoginPage/login.styles";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 export function Register({ navigation }) {
   const [formData, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [show,setShow] = useState(false);
+
   const toast = useToast();
   return (
     <Container
@@ -58,7 +63,8 @@ export function Register({ navigation }) {
             <InputField
               variant="unstyled"
               placeholder="Enter your password"
-              type="password"
+              type={show ? "text" : "password"}
+              InputRightElement={<Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} style={{position: "absolute",elevation:10,right:10}} onPress={() => setShow(!show)} />}
               onChangeText={(value) => {
                 setData({ ...formData, password: value });
               }}

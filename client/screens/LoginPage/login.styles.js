@@ -23,7 +23,7 @@ export const LoginHeading = styled.Text`
 
 export const WelcomeText = styled.Text`
   font-family: MontserratBold;
-  font-size: 40px;
+  font-size: 52px;
   color: #565656;
   margin-top: 90px;
 `;
