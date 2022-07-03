@@ -1,5 +1,5 @@
 import { Button, Center, Container, Heading, Input } from "native-base";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 export const AppCenter = styled(Center)`
   background-color: #0d0d0d;

@@ -1,7 +1,8 @@
 import React from "react";
 import { Container, GetStartedButton } from "./init.styles";
-import Logo from "../../assets/logo.svg";
-import { Box, Button, Center, Text } from "native-base";
+import Logo from "../../assets/init.png";
+
+import { Box, Button, Center, Image, Text } from "native-base";
 import { ImageBackground } from "react-native";
 import map from "../../assets/map.png";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -13,6 +14,7 @@ const InitialScreen = ({ navigation }) => {
         source={map}
         resizeMode="cover"
         style={{
+          height: "100%",
           paddingHorizontal: 50,
         }}
       >
@@ -23,7 +25,11 @@ const InitialScreen = ({ navigation }) => {
           style={{ width: "100%" }}
         >
           <Box style={{ marginLeft: -36, marginBottom: -30, marginTop: -100 }}>
-            <Logo />
+            <Image
+              source={Logo}
+              style={{ width: 200, height: 200 }}
+              resizeMode="contain"
+            />
           </Box>
           <Text
             fontFamily="body"
