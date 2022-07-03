@@ -8,7 +8,7 @@
 
 ## OUR IDEA
 
-We have built a platform to connect EV drivers with indivisuals and companies hosting EV charging stations with a subscribtion based model. We strive to make it simple to locate an `Electric Vehicle Charging Station` near you! Drivers with charing stations at home can host their garages as charging spots for a passive revenue stream! (as we call them Jolt Stations).
+Made using NativeBase, Jolteon is a platform to connect EV drivers with indivisuals and companies hosting EV charging stations with a subscribtion based model. We strive to make it simple to locate an `Electric Vehicle Charging Station` near you! Drivers with charing stations at home can host their garages as charging spots for a passive revenue stream! (as we call them Jolt Stations).
 
 We aim to launch in India seeing the upcoming EV revolution and the opportunities provided by the govt and others to build, grow and monetize the EV market with the Jolteon platform.
 
