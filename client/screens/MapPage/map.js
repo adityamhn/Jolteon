@@ -360,16 +360,17 @@ export function Map() {
 
           <Flex
             flexDirection={"row"}
-            alignItems={"center"}
-            justifyContent={"space-around"}
-            py={2}
+            alignItems={"flex-start"}
+            justifyContent={"flex-start"}
+            marginLeft={2}
+            marginTop={3}
           >
             <Box p="2">
               <Text
                 style={{
                   fontSize: 12,
-                  color: "#ffe040",
-                  fontWeight: "bold",
+                  color: "#fff",
+                  fontFamily: "MontserratMedium",
                   marginLeft: 10,
                 }}
               >
@@ -378,15 +379,14 @@ export function Map() {
               <Button
                 style={{
                   color: "#fff",
-                  fontWeight: "bold",
                   marginLeft: 10,
                   marginTop: 6,
                   backgroundColor: "#FFE040",
                 }}
                 _text={{
                   color: "#0d0d0d",
-                  fontWeight: "bold",
-                  fontSize: 8,
+                  fontFamily: "MontserratBold",
+                  fontSize: 12,
                 }}
                 onPress={showDatePicker}
               >
@@ -401,7 +401,7 @@ export function Map() {
                 }}
               />
             </Box>
-            <Box p="2">
+            {/* <Box p="2">
               <Text
                 style={{
                   fontSize: 12,
@@ -419,13 +419,14 @@ export function Map() {
                   </>
                 )}
               </Text>
-            </Box>
+            </Box> */}
             <Box p="2">
               <Text
                 style={{
                   fontSize: 12,
-                  color: "#ffe040",
-                  fontWeight: "bold",
+                  color: "#fff",
+                  fontFamily: "MontserratMedium",
+
                   marginLeft: 10,
                 }}
               >
@@ -441,8 +442,8 @@ export function Map() {
                 }}
                 _text={{
                   color: "#0d0d0d",
-                  fontWeight: "bold",
-                  fontSize: 8,
+                  fontFamily: "MontserratBold",
+                  fontSize: 12,
                 }}
                 onPress={() => {
                   setDDatePickerVisibility(true);
@@ -462,7 +463,7 @@ export function Map() {
           </Flex>
 
           <Button
-            my={4}
+            my={6}
             mx={"auto"}
             rounded="sm"
             bgColor={"#FFE040"}
@@ -471,7 +472,7 @@ export function Map() {
               fontWeight: "bold",
               fontSize: 12,
             }}
-            w="80%"
+            w="87%"
             disabled={!departureDate || !arrivalDate}
             onPress={onBook}
           >
